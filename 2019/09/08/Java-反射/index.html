@@ -79,18 +79,15 @@
 
 
 
-<meta name="description" content="反射：框架设计的灵魂框架：半成品软件。可以在框架的基础上进行软件开发，简化编码。反射：将类的各个组件部分封装为其他对象好处：①可以在程序运行过程中，操作这些对象  ②可以解耦，提高程序的可扩展性   Java代码经历的三阶段：Source源代码阶段——&amp;gt;Class类对象阶段——&amp;gt;Runtime运行时阶段    获取Class对象的方法：1.Class.forName(“全类名”)：将字">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 反射">
+<meta property="og:title" content="Java 反射：框架设计的灵魂">
 <meta property="og:url" content="http://yoursite.com/2019/09/08/Java-反射/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
-<meta property="og:description" content="反射：框架设计的灵魂框架：半成品软件。可以在框架的基础上进行软件开发，简化编码。反射：将类的各个组件部分封装为其他对象好处：①可以在程序运行过程中，操作这些对象  ②可以解耦，提高程序的可扩展性   Java代码经历的三阶段：Source源代码阶段——&amp;gt;Class类对象阶段——&amp;gt;Runtime运行时阶段    获取Class对象的方法：1.Class.forName(“全类名”)：将字">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/09/08/Java-反射/1.bmp">
-<meta property="og:updated_time" content="2019-09-09T03:26:35.065Z">
+<meta property="og:updated_time" content="2019-09-09T05:44:31.543Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 反射">
-<meta name="twitter:description" content="反射：框架设计的灵魂框架：半成品软件。可以在框架的基础上进行软件开发，简化编码。反射：将类的各个组件部分封装为其他对象好处：①可以在程序运行过程中，操作这些对象  ②可以解耦，提高程序的可扩展性   Java代码经历的三阶段：Source源代码阶段——&amp;gt;Class类对象阶段——&amp;gt;Runtime运行时阶段    获取Class对象的方法：1.Class.forName(“全类名”)：将字">
+<meta name="twitter:title" content="Java 反射：框架设计的灵魂">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/08/Java-反射/1.bmp">
 
 
@@ -127,7 +124,7 @@
 
 
 
-  <title>Java 反射 | Eleven's Blog</title>
+  <title>Java 反射：框架设计的灵魂 | Eleven's Blog</title>
   
 
 
@@ -281,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java 反射</h1>
+          <h1 class="post-title" itemprop="name headline">Java 反射：框架设计的灵魂</h1>
         
 
         <div class="post-meta">
@@ -353,7 +350,9 @@
       
 
       
-        <h1 id="反射：框架设计的灵魂"><a href="#反射：框架设计的灵魂" class="headerlink" title="反射：框架设计的灵魂"></a>反射：框架设计的灵魂</h1><p>框架：半成品软件。可以在框架的基础上进行软件开发，简化编码。<br>反射：将类的各个组件部分封装为其他对象<br>好处：①可以在程序运行过程中，操作这些对象  ②可以解耦，提高程序的可扩展性  </p>
+        <hr>
+<a id="more"></a> 
+<h2 id="反射：框架设计的灵魂"><a href="#反射：框架设计的灵魂" class="headerlink" title="反射：框架设计的灵魂"></a>反射：框架设计的灵魂</h2><p>框架：半成品软件。可以在框架的基础上进行软件开发，简化编码。<br>反射：将类的各个组件部分封装为其他对象<br>好处：①可以在程序运行过程中，操作这些对象  ②可以解耦，提高程序的可扩展性  </p>
 <h2 id="Java代码经历的三阶段："><a href="#Java代码经历的三阶段：" class="headerlink" title="Java代码经历的三阶段："></a>Java代码经历的三阶段：</h2><p>Source源代码阶段——&gt;Class类对象阶段——&gt;Runtime运行时阶段  </p>
 <p><img src="/2019/09/08/Java-反射/1.bmp" alt></p>
 <h2 id="获取Class对象的方法："><a href="#获取Class对象的方法：" class="headerlink" title="获取Class对象的方法："></a>获取Class对象的方法：</h2><p>1.Class.forName(“全类名”)：将字节码文件加载进内存，返回Class对象<br>         * 多用于配置文件，将类名定义咋配置文件中。读取文件，加载类<br>2.类名.class：通过类名的属性class获取<br>         * 多用于参数的传递<br>3.对象.getClass():getClass()方法在Object类中定义着。<br>         * 多用于对象的获取字节码的方式      </p>
@@ -565,7 +564,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#反射：框架设计的灵魂"><span class="nav-number">1.</span> <span class="nav-text">反射：框架设计的灵魂</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java代码经历的三阶段："><span class="nav-number">1.1.</span> <span class="nav-text">Java代码经历的三阶段：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取Class对象的方法："><span class="nav-number">1.2.</span> <span class="nav-text">获取Class对象的方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class对象功能："><span class="nav-number">1.3.</span> <span class="nav-text">Class对象功能：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射：框架设计的灵魂"><span class="nav-number">1.</span> <span class="nav-text">反射：框架设计的灵魂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java代码经历的三阶段："><span class="nav-number">2.</span> <span class="nav-text">Java代码经历的三阶段：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取Class对象的方法："><span class="nav-number">3.</span> <span class="nav-text">获取Class对象的方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class对象功能："><span class="nav-number">4.</span> <span class="nav-text">Class对象功能：</span></a></li></ol></div>
             
 
           </div>
