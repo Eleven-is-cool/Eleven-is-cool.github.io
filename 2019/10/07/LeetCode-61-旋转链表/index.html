@@ -80,13 +80,16 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 遍历字符串String">
-<meta property="og:url" content="http://yoursite.com/2019/10/04/Java-遍历字符串String/index.html">
+<meta property="og:title" content="LeetCode-61-旋转链表">
+<meta property="og:url" content="http://yoursite.com/2019/10/07/LeetCode-61-旋转链表/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-04T06:41:12.874Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/07/LeetCode-61-旋转链表/%E9%A2%98%E7%9B%AE.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/10/07/LeetCode-61-旋转链表/%E9%A2%98%E8%A7%A3.PNG">
+<meta property="og:updated_time" content="2019-10-07T07:16:44.103Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 遍历字符串String">
+<meta name="twitter:title" content="LeetCode-61-旋转链表">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/07/LeetCode-61-旋转链表/%E9%A2%98%E7%9B%AE.PNG">
 
 
 
@@ -116,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/04/Java-遍历字符串String/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/07/LeetCode-61-旋转链表/">
 
 
 
 
 
-  <title>Java 遍历字符串String | Eleven's Blog</title>
+  <title>LeetCode-61-旋转链表 | Eleven's Blog</title>
   
 
 
@@ -259,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/04/Java-遍历字符串String/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/07/LeetCode-61-旋转链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eleven">
@@ -276,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java 遍历字符串String</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-61-旋转链表</h1>
         
 
         <div class="post-meta">
@@ -288,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-04T14:35:57+08:00">
-                2019-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-07T15:10:23+08:00">
+                2019-10-07
               </time>
             
 
@@ -311,8 +314,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -349,16 +352,41 @@
 
       
         <hr>
-<a id="more"></a> 
-<p>Method One     </p>
-<pre><code>String str = &quot;The Lakers are Champions&quot;;
-for (int i = 0, n = str.length(); i &lt; n; i++) {
-    char c = str.charAt(i);
-}    </code></pre><p>Method Two</p>
-<pre><code>char[] chars = str.toCharArray();
-for (int i = 0, n = chars.length; i &lt; n; i++) {
-        char c = chars[i];
-}    </code></pre>
+<a id="more"></a>
+<p><img src="/2019/10/07/LeetCode-61-旋转链表/%E9%A2%98%E7%9B%AE.PNG" alt>     </p>
+<p><img src="/2019/10/07/LeetCode-61-旋转链表/%E9%A2%98%E8%A7%A3.PNG" alt></p>
+<pre><code>/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null)
+            return head;
+
+        int length = 1;
+        ListNode old_tail = head;
+        while(old_tail.next != null){//计算链表带数字的长度
+            length++;
+            old_tail = old_tail.next;
+        }
+        old_tail.next = head;//构成环
+        ListNode new_tail = head;
+
+        // 新的尾部 : (n - k % n - 1)th node
+        // 新的头部 : (n - k % n)th node
+        for(int i = 0;i&lt;length-k%length-1;i++){
+            new_tail = new_tail.next;
+        }
+        ListNode new_head = new_tail.next;
+        new_tail.next = null;//断开环形成单链表
+        return new_head;
+    }
+}</code></pre>
       
     </div>
     
@@ -382,8 +410,8 @@ for (int i = 0, n = chars.length; i &lt; n; i++) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/23/Python-线程池/" rel="next" title="Python 线程池">
-                <i class="fa fa-chevron-left"></i> Python 线程池
+              <a href="/2019/10/04/Java-遍历字符串String/" rel="next" title="Java 遍历字符串String">
+                <i class="fa fa-chevron-left"></i> Java 遍历字符串String
               </a>
             
           </div>
@@ -391,10 +419,6 @@ for (int i = 0, n = chars.length; i &lt; n; i++) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/07/LeetCode-61-旋转链表/" rel="prev" title="LeetCode-61-旋转链表">
-                LeetCode-61-旋转链表 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
