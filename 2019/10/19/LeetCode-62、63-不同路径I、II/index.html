@@ -80,15 +80,16 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-62、63-不同路径I、II">
+<meta property="og:title" content="LeetCode-62、63-不同路径I、II，64-最小路径和">
 <meta property="og:url" content="http://yoursite.com/2019/10/19/LeetCode-62、63-不同路径I、II/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/10/19/LeetCode-62、63-不同路径I、II/1.PNG">
 <meta property="og:image" content="http://yoursite.com/2019/10/19/LeetCode-62、63-不同路径I、II/2.PNG">
-<meta property="og:updated_time" content="2019-10-19T08:50:34.183Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/19/LeetCode-62、63-不同路径I、II/3.PNG">
+<meta property="og:updated_time" content="2019-11-11T10:18:04.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode-62、63-不同路径I、II">
+<meta name="twitter:title" content="LeetCode-62、63-不同路径I、II，64-最小路径和">
 <meta name="twitter:image" content="http://yoursite.com/2019/10/19/LeetCode-62、63-不同路径I、II/1.PNG">
 
 
@@ -125,7 +126,7 @@
 
 
 
-  <title>LeetCode-62、63-不同路径I、II | Eleven's Blog</title>
+  <title>LeetCode-62、63-不同路径I、II，64-最小路径和 | Eleven's Blog</title>
   
 
 
@@ -279,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode-62、63-不同路径I、II</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-62、63-不同路径I、II，64-最小路径和</h1>
         
 
         <div class="post-meta">
@@ -411,6 +412,26 @@
         }
         return res[m-1][n-1];
 
+    }
+}</code></pre><h1 id="64-最小路径和"><a href="#64-最小路径和" class="headerlink" title="64. 最小路径和"></a>64. 最小路径和</h1><p><img src="/2019/10/19/LeetCode-62、63-不同路径I、II/3.PNG" alt></p>
+<pre><code>class Solution {
+    public int minPathSum(int[][] grid) {
+
+        int m=grid.length;
+        int n=grid[0].length;
+        for(int i=0;i&lt;m;i++){
+            for(int j=0;j&lt;n;j++){
+                if(i==0&amp;&amp;j==0)
+                    continue;
+                else if(i==0)
+                    grid[i][j] = grid[i][j] + grid[i][j-1];
+                else if(j==0)
+                    grid[i][j] = grid[i][j] + grid[i-1][j];
+                else 
+                    grid[i][j] = Math.min(grid[i][j-1],grid[i-1][j]) + grid[i][j];
+            }
+        }
+        return grid[m-1][n-1];        
     }
 }</code></pre>
       
@@ -569,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#62-不同路径"><span class="nav-number">1.</span> <span class="nav-text">62. 不同路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二维数组"><span class="nav-number">1.1.</span> <span class="nav-text">二维数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一维数组"><span class="nav-number">1.2.</span> <span class="nav-text">一维数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#63-不同路径-II"><span class="nav-number">2.</span> <span class="nav-text">63. 不同路径 II</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#62-不同路径"><span class="nav-number">1.</span> <span class="nav-text">62. 不同路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二维数组"><span class="nav-number">1.1.</span> <span class="nav-text">二维数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一维数组"><span class="nav-number">1.2.</span> <span class="nav-text">一维数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#63-不同路径-II"><span class="nav-number">2.</span> <span class="nav-text">63. 不同路径 II</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#64-最小路径和"><span class="nav-number">3.</span> <span class="nav-text">64. 最小路径和</span></a></li></ol></div>
             
 
           </div>
