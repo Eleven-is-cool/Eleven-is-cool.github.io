@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/11/11/LeetCode-73-矩阵置零/1.PNG">
-<meta property="og:updated_time" content="2019-11-11T12:52:37.371Z">
+<meta property="og:updated_time" content="2019-11-24T07:33:39.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-73-矩阵置零">
 <meta name="twitter:image" content="http://yoursite.com/2019/11/11/LeetCode-73-矩阵置零/1.PNG">
@@ -353,8 +353,7 @@
         <hr>
 <a id="more"></a>
 <h1 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73. 矩阵置零"></a>73. 矩阵置零</h1><p><img src="/2019/11/11/LeetCode-73-矩阵置零/1.PNG" alt>  </p>
-<p>##方法一：</p>
-<p>###遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；<br>时间复杂度：O((M×N)×(M+N))<br>空间复杂度：O(1)O(1)</p>
+<h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><h3 id="遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；"><a href="#遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；" class="headerlink" title="遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；"></a>遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；</h3><p>时间复杂度：O((M×N)×(M+N))<br>空间复杂度：O(1)O(1)</p>
 <pre><code>class Solution {
     public void setZeroes(int[][] matrix) {
         int n = matrix.length;
@@ -382,9 +381,7 @@
         }
 
     }
-}</code></pre><p>##方法二：</p>
-<p>###方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问 M+N 个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。</p>
-<pre><code>class Solution {
+}</code></pre><h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><h3 id="方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问-M-N-个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。"><a href="#方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问-M-N-个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。" class="headerlink" title="方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问 M+N 个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。"></a>方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问 M+N 个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。</h3><pre><code>class Solution {
     public void setZeroes(int[][] matrix) {
         int row = matrix.length;
         int col = matrix[0].length;
@@ -546,7 +543,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -592,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#73-矩阵置零"><span class="nav-number">1.</span> <span class="nav-text">73. 矩阵置零</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#73-矩阵置零"><span class="nav-number">1.</span> <span class="nav-text">73. 矩阵置零</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一："><span class="nav-number">1.1.</span> <span class="nav-text">方法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；"><span class="nav-number">1.1.1.</span> <span class="nav-text">遍历矩阵，如果有0出现，则遍历该行该列，对不是0的位置赋予一个标志符，最后再遍历矩阵，把标志符变成0；</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二："><span class="nav-number">1.2.</span> <span class="nav-text">方法二：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问-M-N-个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。"><span class="nav-number">1.2.1.</span> <span class="nav-text">方法一不高效的地方在于我们会重复对同一行或者一列赋零。我们可以推迟对行和列赋零的操作。我们可以用每行和每列的第一个元素作为标记，这个标记用来表示这一行或者这一列是否需要赋零。这意味着对于每个节点不需要访问 M+N 个格子而是只需要对标记点的两个格子赋值。这些标签用于之后对矩阵的更新，如果某行的第一个元素为零就将整行置零，如果某列的第一个元素为零就将整列置零。</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
