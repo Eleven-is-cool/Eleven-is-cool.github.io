@@ -93,12 +93,12 @@
 <meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/7.png">
 <meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/8.png">
 <meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/9.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/10.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/11.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/12.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/13.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/14.png">
-<meta property="og:updated_time" content="2020-01-13T13:06:37.042Z">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/10.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/11.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/12.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/13.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/14.PNG">
+<meta property="og:updated_time" content="2020-01-13T13:09:45.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hbase完全分布式搭建与实践">
 <meta name="twitter:image" content="http://yoursite.com/2020/01/13/Hbase完全分布式搭建与实践/1.png">
@@ -375,8 +375,8 @@
 <h1 id="Hbase数据分析"><a href="#Hbase数据分析" class="headerlink" title="Hbase数据分析"></a>Hbase数据分析</h1><p>1、数据集介绍<br>数据集来源<a href="http://dataju.cn/Dataju/web/datasetInstanceDetail/226" target="_blank" rel="noopener">http://dataju.cn/Dataju/web/datasetInstanceDetail/226</a><br>数据包括IMDB网站上抓取的4973部电影28个属性信息,电影时间跨度超过100年和66个国家。属性包括：电影名称、评分、上映时间、上映国家、主要演员、语言、IMDB评分等。   </p>
 <p>2、数据集处理<br>在第一列加上自动增长的序列，作为Hbase的row_key    </p>
 <p>3、导入数据集<br>① 先下载.csv格式的数据到本地<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/5.png" alt><br>② 上传数据文件到Hdfs<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/6.png" alt><br>③ 在HBase里面创建一个movie表来存放电影数据<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/7.png" alt><br>④ 利用ImportTsv将HDFS上的数据文件导入到Hbase的movie表中<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/8.png" alt>    </p>
-<p>4、数据分析<br>首先开启hbase shell,然后再Eclipse中编写java代码连接HBase分析数据<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/9.png" alt><br>Eclipse编写分析程序<br>GitHub源码<a href="https://github.com/Eleven-is-cool/DataAnalyzeInHbase" target="_blank" rel="noopener">https://github.com/Eleven-is-cool/DataAnalyzeInHbase</a><br>Eclipse中导入可视化分析相关包，编写代码分析！<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/10.png" alt><br><img src="/2020/01/13/Hbase完全分布式搭建与实践/11.png" alt><br><img src="/2020/01/13/Hbase完全分布式搭建与实践/12.png" alt>   </p>
-<h1 id="BUG合集"><a href="#BUG合集" class="headerlink" title="BUG合集"></a>BUG合集</h1><p>1、netstat -antp | grep 进程号 根据需要查看进程的访问端口<br>2、单个节点处理Hmaster或者Hregionserver<br>在regionServer上./hbase-daemon.sh start regionserver<br>在master上执行：./hbase-daemon.sh start master<br>3、进入hbase Shell后若出现ERROR: <code>Can&#39;t get master address from ZooKeeper; znode data == null</code>解决方法之一：<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/13.png" alt><br><strong>ip和端口必须一样</strong><br>4、导入数据<br>hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=”,” -Dimporttsv.columns=HBASE_ROW_KEY,info:color,info:director_name,info: num_critic_for_reviews,info:duration,info:director_facebook_likes,info: actor_3_facebook_likes,info:actor_2_name,info:actor_1_facebook_likes hbase-csv1 /small.csv<br>5、在Excel中添加第一列填充序号<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/14.png" alt>    </p>
+<p>4、数据分析<br>首先开启hbase shell,然后再Eclipse中编写java代码连接HBase分析数据<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/9.png" alt><br>Eclipse编写分析程序<br>GitHub源码<a href="https://github.com/Eleven-is-cool/DataAnalyzeInHbase" target="_blank" rel="noopener">https://github.com/Eleven-is-cool/DataAnalyzeInHbase</a><br>Eclipse中导入可视化分析相关包，编写代码分析！<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/10.PNG" alt><br><img src="/2020/01/13/Hbase完全分布式搭建与实践/11.PNG" alt><br><img src="/2020/01/13/Hbase完全分布式搭建与实践/12.PNG" alt>   </p>
+<h1 id="BUG合集"><a href="#BUG合集" class="headerlink" title="BUG合集"></a>BUG合集</h1><p>1、netstat -antp | grep 进程号 根据需要查看进程的访问端口<br>2、单个节点处理Hmaster或者Hregionserver<br>在regionServer上./hbase-daemon.sh start regionserver<br>在master上执行：./hbase-daemon.sh start master<br>3、进入hbase Shell后若出现ERROR: <code>Can&#39;t get master address from ZooKeeper; znode data == null</code>解决方法之一：<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/13.PNG" alt><br><strong>ip和端口必须一样</strong><br>4、导入数据<br>hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=”,” -Dimporttsv.columns=HBASE_ROW_KEY,info:color,info:director_name,info: num_critic_for_reviews,info:duration,info:director_facebook_likes,info: actor_3_facebook_likes,info:actor_2_name,info:actor_1_facebook_likes hbase-csv1 /small.csv<br>5、在Excel中添加第一列填充序号<br><img src="/2020/01/13/Hbase完全分布式搭建与实践/14.PNG" alt>    </p>
 
       
     </div>
