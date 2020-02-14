@@ -80,14 +80,14 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="128-最长连续序列">
+<meta property="og:title" content="LeetCode-128-最长连续序列">
 <meta property="og:url" content="http://yoursite.com/2020/02/06/128-最长连续序列/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/02/06/128-最长连续序列/1.PNG">
-<meta property="og:updated_time" content="2020-02-06T10:46:06.561Z">
+<meta property="og:updated_time" content="2020-02-13T14:00:42.419Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="128-最长连续序列">
+<meta name="twitter:title" content="LeetCode-128-最长连续序列">
 <meta name="twitter:image" content="http://yoursite.com/2020/02/06/128-最长连续序列/1.PNG">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>128-最长连续序列 | Eleven's Blog</title>
+  <title>LeetCode-128-最长连续序列 | Eleven's Blog</title>
   
 
 
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">128-最长连续序列</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-128-最长连续序列</h1>
         
 
         <div class="post-meta">
@@ -353,7 +353,7 @@
         <hr>
 <a id="more"></a>   
 <p><img src="/2020/02/06/128-最长连续序列/1.PNG" alt>   </p>
-<p>#暴力法：<br><strong>时间复杂度</strong>：O(n^3)<br><strong>空间复杂度</strong>：O(1)<br>暴力算法仅使用了有限的整数，所以它用了常数级别的额外空间。   </p>
+<h1 id="暴力法："><a href="#暴力法：" class="headerlink" title="暴力法："></a>暴力法：</h1><p><strong>时间复杂度</strong>：O(n^3)<br><strong>空间复杂度</strong>：O(1)<br>暴力算法仅使用了有限的整数，所以它用了常数级别的额外空间。   </p>
 <pre><code>class Solution {
     public boolean helper(int[] nums,int n){
         for(int i=0;i&lt;nums.length;i++){
@@ -374,7 +374,7 @@
         }
         return res;
     }
-}</code></pre><p>#排序法：<br>先排序，然后判断相邻数之间的关系。<br><strong>时间复杂度</strong>：O(nlgn)<br>算法核心的 for循环恰好运行 n 次，所以算法的时间复杂度由 sort 函数的调用决定，通常会采用 O(nlgn) 时间复杂度的算法。<br><strong>空间复杂度</strong>：O(1)（或者 O(n)）    </p>
+}</code></pre><h1 id="排序法："><a href="#排序法：" class="headerlink" title="排序法："></a>排序法：</h1><p>先排序，然后判断相邻数之间的关系。<br><strong>时间复杂度</strong>：O(nlgn)<br>算法核心的 for循环恰好运行 n 次，所以算法的时间复杂度由 sort 函数的调用决定，通常会采用 O(nlgn) 时间复杂度的算法。<br><strong>空间复杂度</strong>：O(1)（或者 O(n)）    </p>
 <pre><code>class Solution {
     public int longestConsecutive(int[] nums) {
         if(nums.length == 0)
@@ -396,7 +396,7 @@
         res = Math.max(current_length,res);
         return res;
     }   
-}</code></pre><p>#用set降低查找时间：<br>这个优化算法与暴力算法仅有两处不同：这些数字用一个 HashSet 保存，实现 O(1) 时间的查询，同时，我们只对当前数字-1不在哈希表里的数字，作为连续序列的第一个数字去找对应的最长序列，这是因为其他数字一定已经出现在了某个序列里。</p>
+}</code></pre><h1 id="用set降低查找时间："><a href="#用set降低查找时间：" class="headerlink" title="用set降低查找时间："></a>用set降低查找时间：</h1><p>这个优化算法与暴力算法仅有两处不同：这些数字用一个 HashSet 保存，实现 O(1) 时间的查询，同时，我们只对当前数字-1不在哈希表里的数字，作为连续序列的第一个数字去找对应的最长序列，这是因为其他数字一定已经出现在了某个序列里。</p>
 <pre><code>class Solution {
     public int longestConsecutive(int[] nums) {
         HashSet&lt;Integer&gt; set = new HashSet&lt;Integer&gt;();
@@ -504,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -522,7 +531,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -558,6 +567,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#暴力法："><span class="nav-number">1.</span> <span class="nav-text">暴力法：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排序法："><span class="nav-number">2.</span> <span class="nav-text">排序法：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用set降低查找时间："><span class="nav-number">3.</span> <span class="nav-text">用set降低查找时间：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
