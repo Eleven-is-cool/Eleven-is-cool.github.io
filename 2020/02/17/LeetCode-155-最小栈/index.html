@@ -80,16 +80,15 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="大数据时代">
-<meta property="og:url" content="http://yoursite.com/2020/01/13/大数据时代/index.html">
+<meta property="og:title" content="LeetCode-155-最小栈大子序列">
+<meta property="og:url" content="http://yoursite.com/2020/02/17/LeetCode-155-最小栈/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/大数据时代/1.PNG">
-<meta property="og:image" content="http://yoursite.com/2020/01/13/大数据时代/2.jpg">
-<meta property="og:updated_time" content="2020-01-13T11:43:51.398Z">
+<meta property="og:image" content="http://yoursite.com/2020/02/17/LeetCode-155-最小栈/1.PNG">
+<meta property="og:updated_time" content="2020-02-17T10:46:20.797Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大数据时代">
-<meta name="twitter:image" content="http://yoursite.com/2020/01/13/大数据时代/1.PNG">
+<meta name="twitter:title" content="LeetCode-155-最小栈大子序列">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/17/LeetCode-155-最小栈/1.PNG">
 
 
 
@@ -119,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/01/13/大数据时代/">
+  <link rel="canonical" href="http://yoursite.com/2020/02/17/LeetCode-155-最小栈/">
 
 
 
 
 
-  <title>大数据时代 | Eleven's Blog</title>
+  <title>LeetCode-155-最小栈大子序列 | Eleven's Blog</title>
   
 
 
@@ -262,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/13/大数据时代/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/LeetCode-155-最小栈/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eleven">
@@ -279,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">大数据时代</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-155-最小栈大子序列</h1>
         
 
         <div class="post-meta">
@@ -291,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-13T13:26:42+08:00">
-                2020-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-17T18:44:22+08:00">
+                2020-02-17
               </time>
             
 
@@ -314,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式数据库</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -352,19 +351,52 @@
 
       
         <hr>
-<a id="more"></a>
-<h1 id="大数据时代的来临"><a href="#大数据时代的来临" class="headerlink" title="大数据时代的来临"></a>大数据时代的来临</h1><h3 id="三次信息化浪潮"><a href="#三次信息化浪潮" class="headerlink" title="三次信息化浪潮"></a>三次信息化浪潮</h3><p><img src="/2020/01/13/大数据时代/1.PNG" alt><br>数据产生方式的变革促成大数据时代的来临。  </p>
-<h3 id="传统关系型数据库面临的问题"><a href="#传统关系型数据库面临的问题" class="headerlink" title="传统关系型数据库面临的问题"></a>传统关系型数据库面临的问题</h3><h4 id="关系模型束缚对海量数据的快速访问能力"><a href="#关系模型束缚对海量数据的快速访问能力" class="headerlink" title="关系模型束缚对海量数据的快速访问能力"></a>关系模型束缚对海量数据的快速访问能力</h4><p>传统按值定位相应的行的方式，影响快速访问的能力<br>在海量数据下分区也无法显著改善性能</p>
-<h4 id="缺乏海量数据访问的灵活性"><a href="#缺乏海量数据访问的灵活性" class="headerlink" title="缺乏海量数据访问的灵活性"></a>缺乏海量数据访问的灵活性</h4><p>不能对随机性的查询快速响应，需要DBA对系统调优</p>
-<h4 id="对非结构数据处理能力薄弱"><a href="#对非结构数据处理能力薄弱" class="headerlink" title="对非结构数据处理能力薄弱"></a>对非结构数据处理能力薄弱</h4><p>对多媒体数据只是停留在二进制代码文件的存储<br>无法应对多媒体数据的识别、检索等深加工需求</p>
-<h4 id="海量数据导致存储成本、维护成本不断增加"><a href="#海量数据导致存储成本、维护成本不断增加" class="headerlink" title="海量数据导致存储成本、维护成本不断增加"></a>海量数据导致存储成本、维护成本不断增加</h4><p>海量数据导致的存储和维护成本直线上升</p>
-<h3 id="大数据的特点"><a href="#大数据的特点" class="headerlink" title="大数据的特点"></a>大数据的特点</h3><p>①数据量大 ②数据类型繁多 ③处理速度快 ④价值密度低</p>
-<h3 id="大数据三大基石"><a href="#大数据三大基石" class="headerlink" title="大数据三大基石"></a>大数据三大基石</h3><p>①Bigtable ②HDFS ③MapReduce   </p>
-<h1 id="NoSql"><a href="#NoSql" class="headerlink" title="NoSql"></a>NoSql</h1><p>通常，NoSQL数据库具有以下几个<strong>特点</strong>：<br>（1）灵活的可扩展性<br>（2）灵活的数据模型<br>（3）与云计算紧密融合   </p>
-<h3 id="NoSQL与关系数据库的比较总结"><a href="#NoSQL与关系数据库的比较总结" class="headerlink" title="NoSQL与关系数据库的比较总结"></a>NoSQL与关系数据库的比较总结</h3><p>（1）关系数据库<br>优势：以完善的关系代数理论作为基础，有严格的标准，支持事务ACID四性，借助索引机制可以实现高效的查询，技术成熟，有专业公司的技术支持<br>劣势：可扩展性较差，无法较好支持海量数据存储，数据模型过于死板、无法较好支持Web2.0应用，事务机制影响了系统的整体性能等     </p>
-<p>（2）NoSQL数据库<br>优势：可以支持超大规模数据存储，灵活的数据模型可以很好地支持Web2.0应用，具有强大的横向扩展能力等<br>劣势：缺乏数学理论基础，复杂查询性能不高，大都不能实现事务强一致性，很难实现数据完整性，技术尚不成熟，缺乏专业团队的技术支持，维护较困难等    </p>
-<h3 id="NoSQL的四大类型"><a href="#NoSQL的四大类型" class="headerlink" title="NoSQL的四大类型"></a>NoSQL的四大类型</h3><p><img src="/2020/01/13/大数据时代/2.jpg" alt> </p>
+<a id="more"></a>   
+<p><img src="/2020/02/17/LeetCode-155-最小栈/1.PNG" alt>  </p>
+<pre><code>class MinStack {
+    private Stack&lt;Integer&gt; stack;
+    private Stack&lt;Integer&gt; minstack;
+    /** initialize your data structure here. */
+    public MinStack() {
+        stack = new Stack&lt;Integer&gt;();
+        minstack = new Stack&lt;Integer&gt;();
+    }
 
+    public void push(int x) {
+        stack.push(x);
+        if(!minstack.isEmpty()){
+            int top = minstack.peek();
+            if(top &gt;= x)
+                minstack.push(x);
+        }else{
+            minstack.push(x);
+        }
+    }
+
+    public void pop() {
+        int stack_pop = stack.pop();//stack要出栈
+        int minstack_pop = minstack.peek();//minstack判断栈顶元素是否是stack栈顶的值，是的话就出栈
+        if(stack_pop == minstack_pop)
+            minstack.pop();
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minstack.peek();
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */</code></pre>
       
     </div>
     
@@ -388,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/07/AlexNet/" rel="next" title="AlexNet">
-                <i class="fa fa-chevron-left"></i> AlexNet
+              <a href="/2020/02/16/LeetCode-152-乘积最大子序列/" rel="next" title="LeetCode-152-乘积最大子序列">
+                <i class="fa fa-chevron-left"></i> LeetCode-152-乘积最大子序列
               </a>
             
           </div>
@@ -397,10 +429,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/13/Hadoop/" rel="prev" title="Hadoop">
-                Hadoop <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -452,17 +480,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,22 +534,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大数据时代的来临"><span class="nav-number">1.</span> <span class="nav-text">大数据时代的来临</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次信息化浪潮"><span class="nav-number">1.0.1.</span> <span class="nav-text">三次信息化浪潮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传统关系型数据库面临的问题"><span class="nav-number">1.0.2.</span> <span class="nav-text">传统关系型数据库面临的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关系模型束缚对海量数据的快速访问能力"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">关系模型束缚对海量数据的快速访问能力</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺乏海量数据访问的灵活性"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">缺乏海量数据访问的灵活性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对非结构数据处理能力薄弱"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">对非结构数据处理能力薄弱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#海量数据导致存储成本、维护成本不断增加"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">海量数据导致存储成本、维护成本不断增加</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据的特点"><span class="nav-number">1.0.3.</span> <span class="nav-text">大数据的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据三大基石"><span class="nav-number">1.0.4.</span> <span class="nav-text">大数据三大基石</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSql"><span class="nav-number">2.</span> <span class="nav-text">NoSql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NoSQL与关系数据库的比较总结"><span class="nav-number">2.0.1.</span> <span class="nav-text">NoSQL与关系数据库的比较总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NoSQL的四大类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">NoSQL的四大类型</span></a></li></ol></li></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
