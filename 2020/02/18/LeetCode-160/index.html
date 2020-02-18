@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/02/18/LeetCode-160/1.PNG">
-<meta property="og:updated_time" content="2020-02-18T11:58:19.826Z">
+<meta property="og:updated_time" content="2020-02-18T12:10:27.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-160-相交链表">
 <meta name="twitter:image" content="http://yoursite.com/2020/02/18/LeetCode-160/1.PNG">
@@ -352,8 +352,38 @@
       
         <hr>
 <a id="more"></a>   
-<p><img src="/2020/02/18/LeetCode-160/1.PNG" alt><br>当</p>
+<p><img src="/2020/02/18/LeetCode-160/1.PNG" alt><br>两个链表同时遍历，当其中一个到尾部NULL后，指向另一个链表的头部，继续遍历，直到两个节点相同即找到相交点。</p>
+<pre><code>/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null)
+            return null;
+        ListNode A = headA;
+        ListNode B = headB;
+        while(A != B){
+            if(A==null)
+                A = headB;
+            else
+                A = A.next;
 
+            if(B==null)
+                B = headA;
+            else    
+                B = B.next;
+        }
+        return A;
+    }
+}</code></pre>
       
     </div>
     
