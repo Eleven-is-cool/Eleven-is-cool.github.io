@@ -80,16 +80,15 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="33-搜索旋转排序数组、81-搜索旋转排序数组(有重复项)">
-<meta property="og:url" content="http://yoursite.com/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/index.html">
+<meta property="og:title" content="LeetCode-2-两数相加">
+<meta property="og:url" content="http://yoursite.com/2020/02/20/LeetCode-2-两数相加/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/1.PNG">
-<meta property="og:image" content="http://yoursite.com/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/2.PNG">
-<meta property="og:updated_time" content="2020-01-16T10:50:02.252Z">
+<meta property="og:image" content="http://yoursite.com/2020/02/20/LeetCode-2-两数相加/1.PNG">
+<meta property="og:updated_time" content="2020-02-20T14:26:46.447Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="33-搜索旋转排序数组、81-搜索旋转排序数组(有重复项)">
-<meta name="twitter:image" content="http://yoursite.com/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/1.PNG">
+<meta name="twitter:title" content="LeetCode-2-两数相加">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/20/LeetCode-2-两数相加/1.PNG">
 
 
 
@@ -119,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/">
+  <link rel="canonical" href="http://yoursite.com/2020/02/20/LeetCode-2-两数相加/">
 
 
 
 
 
-  <title>33-搜索旋转排序数组、81-搜索旋转排序数组(有重复项) | Eleven's Blog</title>
+  <title>LeetCode-2-两数相加 | Eleven's Blog</title>
   
 
 
@@ -262,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/LeetCode-2-两数相加/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eleven">
@@ -279,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">33-搜索旋转排序数组、81-搜索旋转排序数组(有重复项)</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-2-两数相加</h1>
         
 
         <div class="post-meta">
@@ -291,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-16T18:36:19+08:00">
-                2020-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T22:06:05+08:00">
+                2020-02-20
               </time>
             
 
@@ -352,79 +351,41 @@
 
       
         <hr>
-<a id="more"></a> 
+<a id="more"></a>   
+<p><img src="/2020/02/20/LeetCode-2-两数相加/1.PNG" alt>    </p>
+<pre><code>/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        int carry = 0;
+        while(l1 != null || l2 != null){
+            int x = l1 == null ? 0:l1.val;
+            int y = l2 == null ? 0:l2.val;
 
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>两道题的区别是有无重复项，第一道中的<code>if(nums[start] &lt;= nums[mid])</code>被拆分成<code>if(nums[start] == nums[mid]){//相当于去掉一个重复的干扰项
-                    start++;
-                    continue;
-                }</code>和<code>if(nums[start] &lt; nums[mid])</code></p>
-<h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h1><p><img src="/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/1.PNG" alt>    </p>
-<pre><code>class Solution {
-    public int search(int[] nums, int target) {
-        if(nums == null || nums.length == 0)
-            return -1;
-        int start = 0;
-        int end = nums.length - 1;
-        int mid;
-        while(start &lt;= end){    
-            mid = start + (end-start)/2;    
-            if(nums[mid] == target)
-                return mid;
-            if(nums[start] &lt;= nums[mid]){//等于是为了防止出现最后两项与逻辑不符的情况
-                if(nums[start] &lt;= target &amp;&amp; nums[mid] &gt; target){
-                    end = mid - 1;
-                }
-                else{
-                    start = mid + 1;
-                }        
-            }
-            else{
-                if(nums[mid] &lt; target &amp;&amp; nums[end] &gt;= target){
-                    start = mid + 1;
-                }
-                else{
-                    end = mid - 1;
-                }
-            }
+            int sum = x+y+carry;
+            carry= (sum)/10;//所有加起来再除以10
+            sum = (sum)%10;
+
+            cur.next = new ListNode(sum);
+            cur = cur.next;
+            if(l1 != null)
+                l1=l1.next;
+            if(l2 != null)
+                l2=l2.next;           
         }
-        return -1;
+        if(carry == 1)
+            cur.next = new ListNode(1);
+        return dummy.next;
     }
-}</code></pre><h1 id="81-搜索旋转排序数组-II（重复元素）"><a href="#81-搜索旋转排序数组-II（重复元素）" class="headerlink" title="81. 搜索旋转排序数组 II（重复元素）"></a>81. 搜索旋转排序数组 II（重复元素）</h1><p><img src="/2020/01/16/33-搜索旋转排序数组、81-搜索旋转排序数组-有重复项/2.PNG" alt></p>
-<pre><code>class Solution {
-    public boolean search(int[] nums, int target) {
-        if(nums == null || nums.length == 0)
-            return false;
-        int start = 0;
-        int end = nums.length - 1;
-        int mid;
-        while(start &lt;= end){    
-            mid = start + (end-start)/2;    
-            if(nums[mid] == target)
-                return true;
-            if(nums[start] == nums[mid]){//相当于去掉一个重复的干扰项。
-                start++;
-                continue;
-            }
-            if(nums[start] &lt; nums[mid]){//这里不用=，因为前面已经判断过了
-                if(nums[start] &lt;= target &amp;&amp; nums[mid] &gt; target){
-                    end = mid - 1;
-                }
-                else{
-                    start = mid + 1;
-                }        
-            }
-            else{
-                if(nums[mid] &lt; target &amp;&amp; nums[end] &gt;= target){
-                    start = mid + 1;
-                }
-                else{
-                    end = mid - 1;
-                }
-            }
-        }
-        return false;
-    }
-} </code></pre>
+}</code></pre>
       
     </div>
     
@@ -448,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/16/80-删除排序数组中的重复项/" rel="next" title="80-删除排序数组中的重复项">
-                <i class="fa fa-chevron-left"></i> 80-删除排序数组中的重复项
+              <a href="/2020/02/20/Java-Collection/" rel="next" title="Java-Collection">
+                <i class="fa fa-chevron-left"></i> Java-Collection
               </a>
             
           </div>
@@ -457,10 +418,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/17/83-删除排序链表中的重复元素-82-删除排序链表中的重复元素II/" rel="prev" title="83-删除排序链表中的重复元素,82-删除排序链表中的重复元素II">
-                83-删除排序链表中的重复元素,82-删除排序链表中的重复元素II <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -512,17 +469,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -575,22 +523,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">1.</span> <span class="nav-text">区别</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#33-搜索旋转排序数组"><span class="nav-number"></span> <span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#81-搜索旋转排序数组-II（重复元素）"><span class="nav-number"></span> <span class="nav-text">81. 搜索旋转排序数组 II（重复元素）</span></a></li></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
