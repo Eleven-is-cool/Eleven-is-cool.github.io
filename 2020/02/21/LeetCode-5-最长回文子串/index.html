@@ -80,14 +80,15 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-5-最长回文子串">
+<meta property="og:title" content="LeetCode-5-最长回文子串,9-回文整数">
 <meta property="og:url" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/1.PNG">
-<meta property="og:updated_time" content="2020-02-21T15:24:32.582Z">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/2.PNG">
+<meta property="og:updated_time" content="2020-02-22T09:31:54.920Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode-5-最长回文子串">
+<meta name="twitter:title" content="LeetCode-5-最长回文子串,9-回文整数">
 <meta name="twitter:image" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/1.PNG">
 
 
@@ -124,7 +125,7 @@
 
 
 
-  <title>LeetCode-5-最长回文子串 | Eleven's Blog</title>
+  <title>LeetCode-5-最长回文子串,9-回文整数 | Eleven's Blog</title>
   
 
 
@@ -278,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode-5-最长回文子串</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-5-最长回文子串,9-回文整数</h1>
         
 
         <div class="post-meta">
@@ -352,8 +353,8 @@
       
         <hr>
 <a id="more"></a>   
-<p><img src="/2020/02/21/LeetCode-5-最长回文子串/1.PNG" alt>  </p>
-<h1 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h1><pre><code>class Solution {
+<h1 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="5-最长回文子串"></a>5-最长回文子串</h1><p><img src="/2020/02/21/LeetCode-5-最长回文子串/1.PNG" alt>  </p>
+<h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><pre><code>class Solution {
     public boolean isPalindrome(String s){
         int len = s.length();
         for(int i=0;i&lt;len/2;i++){
@@ -377,7 +378,7 @@
         return res;
 
     }
-}  </code></pre><h1 id="动态规划（状态转移方程）"><a href="#动态规划（状态转移方程）" class="headerlink" title="动态规划（状态转移方程）"></a>动态规划（状态转移方程）</h1><pre><code>class Solution {
+}  </code></pre><h2 id="动态规划（状态转移方程）"><a href="#动态规划（状态转移方程）" class="headerlink" title="动态规划（状态转移方程）"></a>动态规划（状态转移方程）</h2><pre><code>class Solution {
     public String longestPalindrome(String s) {
         int len = s.length();
         if(len&lt;2)
@@ -411,7 +412,7 @@
         }
         return s.substring(start,start+maxlen);
     }
-}</code></pre><h1 id="中心扩展法"><a href="#中心扩展法" class="headerlink" title="中心扩展法"></a>中心扩展法</h1><pre><code>class Solution {
+}</code></pre><h2 id="中心扩展法"><a href="#中心扩展法" class="headerlink" title="中心扩展法"></a>中心扩展法</h2><pre><code>class Solution {
     public String longestPalindrome(String s) {
         int len=s.length();
         if(len &lt; 2)
@@ -442,6 +443,40 @@
                 break;
         }
         return s.substring(left+1,right);//跳出循环时,s.charAt(left)!=s.charAt(right),所以不可取这两个端点
+    }
+}</code></pre><h1 id="9-回文整数"><a href="#9-回文整数" class="headerlink" title="9-回文整数"></a>9-回文整数</h1><p><img src="/2020/02/21/LeetCode-5-最长回文子串/2.PNG" alt>   </p>
+<h2 id="反转整数（可能溢出）"><a href="#反转整数（可能溢出）" class="headerlink" title="反转整数（可能溢出）"></a>反转整数（可能溢出）</h2><p>如果将整个整数反转，可能存在溢出的情况，所以需要考虑溢出情况，LeetCode这道题没有对溢出做出要求，所以就省去溢出检查的步骤。 </p>
+<pre><code>class Solution {
+    public boolean isPalindrome(int x) {
+        if(x&lt;0)
+            return false;
+        int cur=x;
+        int res=0;
+        while(cur!=0){
+            int pop=cur%10;
+            res = res *10+pop;
+            cur = cur/10;
+        }
+        if(res == x)
+            return true;
+        return false;
+
+    }
+}</code></pre><h2 id="反转一半即可"><a href="#反转一半即可" class="headerlink" title="反转一半即可"></a>反转一半即可</h2><p>例如1221，只需将后半部分的21反转成12，然后与前半部分比较，相等就是回文整数，<strong>采用后半部分反转结果是否大于前半部分</strong>来判断是否反转整数的一半。   </p>
+<pre><code>class Solution {
+    public boolean isPalindrome(int x) {
+        if(x&lt;0 || (x % 10 == 0 &amp;&amp; x != 0))//复数 || x最后一位是0,那么就只有0满足要求
+            return false;
+        int pre_res=0;
+        while(pre_res &lt; x){
+            int pop=x%10;
+            pre_res = pre_res*10 + pop;
+            x /= 10;
+        }
+        if(x == pre_res || x == pre_res/10)//12321这样的奇数,pre_res=123
+            return true;
+        return false;
+
     }
 }</code></pre>
       
@@ -476,6 +511,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/22/LeetCode-7-整数反转/" rel="prev" title="LeetCode-7-整数反转">
+                LeetCode-7-整数反转 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -554,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -600,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#暴力法"><span class="nav-number">1.</span> <span class="nav-text">暴力法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划（状态转移方程）"><span class="nav-number">2.</span> <span class="nav-text">动态规划（状态转移方程）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中心扩展法"><span class="nav-number">3.</span> <span class="nav-text">中心扩展法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#5-最长回文子串"><span class="nav-number">1.</span> <span class="nav-text">5-最长回文子串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力法"><span class="nav-number">1.1.</span> <span class="nav-text">暴力法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划（状态转移方程）"><span class="nav-number">1.2.</span> <span class="nav-text">动态规划（状态转移方程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心扩展法"><span class="nav-number">1.3.</span> <span class="nav-text">中心扩展法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-回文整数"><span class="nav-number">2.</span> <span class="nav-text">9-回文整数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反转整数（可能溢出）"><span class="nav-number">2.1.</span> <span class="nav-text">反转整数（可能溢出）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转一半即可"><span class="nav-number">2.2.</span> <span class="nav-text">反转一半即可</span></a></li></ol></li></ol></div>
             
 
           </div>
