@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/09/23/Python-线程池/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-24T06:23:00.386Z">
+<meta property="og:updated_time" content="2020-02-24T07:37:17.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 线程池">
 
@@ -367,7 +367,7 @@ p = ThreadPoolExecutor(30)
 for page_url in page_url_list:
     p.submit(get_detail_page_url, page_url).add_done_callback(detail_page_parser)
     # 这里的回调函数拿到的是一个对象。
-    # 先把返回的res得到一个结果。即在前面加上一个res.result(),这个结果就是get_detail_page_url的返回
+    # 先把返回的res得到一个结果。即在前面加上一个res.result(),这个结果就是get_detail_page_url的返回。
 p.shutdown()
     #shutdown() 方法，该方法将启动线程池的关闭序列。调用 shutdown() 方法后的线程池不再接收新任务，但会将以前所有的已提交任务执行完成。
     #当线程池中的所有任务都执行完成后，该线程池中的所有线程都会死亡。</code></pre>
