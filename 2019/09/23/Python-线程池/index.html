@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/09/23/Python-线程池/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-23T12:30:44.150Z">
+<meta property="og:updated_time" content="2020-02-24T06:23:00.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 线程池">
 
@@ -357,7 +357,7 @@
 <p>此外，使用线程池可以有效地控制系统中并发线程的数量。当系统中包含有大量的并发线程时，会导致系统性能急剧下降，甚至导致 Python 解释器崩溃，而线程池的最大线程数参数可以控制系统中并发线程的数量不超过此数。</p>
 <h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><p>使用线程池来执行线程任务的步骤如下：</p>
 <p>①调用 ThreadPoolExecutor 类的构造器创建一个线程池。   </p>
-<p>②定义一个普通函数作为线程任务。   </p>
+<p>②定义一个普通函数作为线程任务。        </p>
 <p>③调用 ThreadPoolExecutor 对象的 submit() 方法来提交线程任务。      </p>
 <p>④当不想提交任何任务时，调用 ThreadPoolExecutor 对象的 shutdown() 方法来关闭线程池。</p>
 <h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><p>p.submit(这里异步调用).add_done_callback(回调函数)<br>当线程任务完成后，程序会自动触发回调函数，回调函数会获得线程任务的返回值作为参数。<br>在回调函数里，传进来的参数需要用.result()得到结果。</p>
