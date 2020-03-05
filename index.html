@@ -304,6 +304,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -332,56 +354,14 @@
 
       
         
-          
-            <ul>
-<li>单例模式是指整个程序中仅有一个实例。该类负责创建自己的对象，同时确保只有一个对象被创建。      </li>
-<li>单例模式，一般用于比较复杂的对象，只初始化一次，其构造函数是被private修饰，使得外面调用不到构造函数，从而不能new出一个实例，只能通过调用getInstance方法来得到对象，且getInstance函数保证每次调用都返回相同的对象。         </li>
-</ul>
-<h2 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h2><p>类对象一开始就初始化，不管需不需要，都会创建。<br>因为一开始就创建好实例，所以是线程安全的。  </p>
-<pre><code>public class SingleHungry{
-    private static SingleHungry sh=new SingleHungry();   
-    private SingleHungry{
-    }
-    public static SingleHungry getInstance(){
-        return sh;
-    }
-}</code></pre><h2 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h2><p>对象初始化被放到了实例化方法中，延迟实例化，但是当多个线程统一访问时，有可能出现线程不安全的情况，需要优化。        </p>
-<pre><code>public class SingleLazy{
-    private static SingleLazy sh=null;   
-    private SingleLazy{
-    }
-    public static SingleLazy getInstance(){
-        if(sh==null)
-            sh=new SingleLazy();
-        return sh;
-    }
-}</code></pre><h2 id="双重检测"><a href="#双重检测" class="headerlink" title="双重检测"></a>双重检测</h2><p>双重校验锁式分别在锁的前后进行判空校验，双重校验锁式是线程安全的。加上volatile关键字修饰变量来达到稳定效果。  </p>
-<pre><code>public class SingleLazy{
-    private volatile static SingleLazy sh=null;   
-    private SingleLazy{
-    }
-    public static SingleLazy getInstance(){
-        if(sh == null){  
-            synchronized(SingleLazy.class){  
-                if(sh == null){  
-                    sh = new SingleLazy();            
-                }                   
-                }      
-        }  
-        return sh;  
-    }
-}</code></pre><h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p>静态内部类即使类被加载也不会创建单例对象，除非调用getInstance()，只有当调用getInstance()方法，才会被装载SingleInnerHolder类，从而实例化单例对象。   </p>
-<pre><code>public class SingleInner{
-    private static class SingleInnerHolder{  
-        private static SingleInner instance = new SingleInner();     
-    }
-    private SingleInner{
-    }
-    public static SingleInner getInstance(){  
-        return SingleInnerHolder.instance;  
-    }
-}</code></pre>
-          
+          <hr>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/01/java-设计模式之单例模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
