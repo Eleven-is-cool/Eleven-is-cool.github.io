@@ -79,14 +79,16 @@
 
 
 
-<meta property="og:type" content="article">
-<meta property="og:title" content="Python 线程池">
-<meta property="og:url" content="http://yoursite.com/2019/09/23/Python-线程池/index.html">
+<meta name="description" content="Insist on learning some technology every day.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Eleven&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/archives/page/6/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
+<meta property="og:description" content="Insist on learning some technology every day.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-24T07:37:17.990Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python 线程池">
+<meta name="twitter:title" content="Eleven&#39;s Blog">
+<meta name="twitter:description" content="Insist on learning some technology every day.">
 
 
 
@@ -116,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/09/23/Python-线程池/">
+  <link rel="canonical" href="http://yoursite.com/archives/page/6/">
 
 
 
 
 
-  <title>Python 线程池 | Eleven's Blog</title>
+  <title>归档 | Eleven's Blog</title>
   
 
 
@@ -141,7 +143,7 @@
     
   
 
-  <div class="container sidebar-position-right page-post-detail">
+  <div class="container sidebar-position-right page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,188 +247,75 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
 
-  
+      <span class="archive-page-counter">
+        
+        
+         
+          
+        好! 目前共计 51 篇日志。 继续努力。
+      </span>
 
-  
-  
-  
+      
+
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2019">2019</h1>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Python-线程池/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eleven">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eleven's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2019/08/27/搭建hexo，部署到GitHub仓库/" itemprop="url">
+              
+                <span itemprop="name">搭建hexo，部署到GitHub仓库</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">Python 线程池</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T20:06:31+08:00">
-                2019-09-23
-              </time>
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-08-27T21:48:10+08:00" content="2019-08-27">
+          08-27
+        </time>
+      </div>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <hr>
-<a id="more"></a>
-
-
-<h2 id="线程池的原理"><a href="#线程池的原理" class="headerlink" title="线程池的原理"></a>线程池的原理</h2><p>系统启动一个新线程的成本是比较高的，因为它涉及与操作系统的交互。在这种情形下，使用线程池可以很好地提升性能，尤其是当程序中需要创建大量生存期很短暂的线程时，更应该考虑使用线程池。   </p>
-<p>线程池在系统启动时即创建大量空闲的线程，程序只要将一个函数提交给线程池，线程池就会启动一个空闲的线程来执行它。当该函数执行结束后，该线程并不会死亡，而是再次返回到线程池中变成空闲状态，等待执行下一个函数。    </p>
-<p>此外，使用线程池可以有效地控制系统中并发线程的数量。当系统中包含有大量的并发线程时，会导致系统性能急剧下降，甚至导致 Python 解释器崩溃，而线程池的最大线程数参数可以控制系统中并发线程的数量不超过此数。</p>
-<h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><p>使用线程池来执行线程任务的步骤如下：</p>
-<p>①调用 ThreadPoolExecutor 类的构造器创建一个线程池。   </p>
-<p>②定义一个普通函数作为线程任务。        </p>
-<p>③调用 ThreadPoolExecutor 对象的 submit() 方法来提交线程任务。      </p>
-<p>④当不想提交任何任务时，调用 ThreadPoolExecutor 对象的 shutdown() 方法来关闭线程池。</p>
-<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><p>p.submit(这里异步调用).add_done_callback(回调函数)<br>当线程任务完成后，程序会自动触发回调函数，回调函数会获得线程任务的返回值作为参数。<br>在回调函数里，传进来的参数需要用.result()得到结果。</p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>from concurrent.futures import ThreadPoolExecutor  # 进程池模块
-
-p = ThreadPoolExecutor(30)
-for page_url in page_url_list:
-    p.submit(get_detail_page_url, page_url).add_done_callback(detail_page_parser)
-    # 这里的回调函数拿到的是一个对象。
-    # 先把返回的res得到一个结果。即在前面加上一个res.result(),这个结果就是get_detail_page_url的返回。
-p.shutdown()
-    #shutdown() 方法，该方法将启动线程池的关闭序列。调用 shutdown() 方法后的线程池不再接收新任务，但会将以前所有的已提交任务执行完成。
-    #当线程池中的所有任务都执行完成后，该线程池中的所有线程都会死亡。</code></pre>
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/09/16/LeetCode-56-合并区间/" rel="next" title="LeetCode 56.合并区间">
-                <i class="fa fa-chevron-left"></i> LeetCode 56.合并区间
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/04/Java-遍历字符串String/" rel="prev" title="Java 遍历字符串String">
-                Java 遍历字符串String <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
       
+
     </div>
   </div>
+  
+  
+  
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+
 
 
           </div>
@@ -434,10 +323,6 @@ p.shutdown()
 
 
           
-
-  
-
-
 
         </div>
         
@@ -458,17 +343,8 @@ p.shutdown()
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -521,22 +397,6 @@ p.shutdown()
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的原理"><span class="nav-number">1.</span> <span class="nav-text">线程池的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的使用"><span class="nav-number">2.</span> <span class="nav-text">线程池的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">3.</span> <span class="nav-text">回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">4.</span> <span class="nav-text">例子</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -670,10 +530,6 @@ p.shutdown()
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
