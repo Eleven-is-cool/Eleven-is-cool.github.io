@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/HashMap/index.html">
+<meta property="og:site_name" content="Eleven&#39;s Blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/1.webp">
+<meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/3.jpg">
+<meta property="og:updated_time" content="2020-03-08T05:51:03.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HashMap">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/07/HashMap/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/07/HashMap/">
+
+
+
+
+
+  <title>HashMap | Eleven's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eleven's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eleven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eleven's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HashMap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T22:57:21+08:00">
+                2020-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>    
+<h2 id="HashMa简介"><a href="#HashMa简介" class="headerlink" title="HashMa简介"></a>HashMa简介</h2><p>HashMap继承了Map接口,主要用来存放键值对。<br>JDK1.8 之前HashMap由数组+链表组成的，数组是HashMap的主体，链表则是主要为了解决哈希冲突而存在的（“拉链法”解决冲突）<br>JDK1.8 以后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）时，将链表转化为红黑树，以减少搜索时间。<br><img src="/2020/03/07/HashMap/1.jpg" alt="image">       </p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="/2020/03/07/HashMap/1.webp" alt="image"><br>HashMap的数据是存在table数组中的，它是一个Entry数组,JDK8中取名为Node，Entry是HashMap的一个静态内部类。</p>
+<pre><code>/** 
+* Node  = HashMap的内部类，实现了Map.Entry接口，本质是键值对
+* 实现了getKey()、getValue()、equals(Object o)和hashCode()等方法
+**/  
+
+static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+
+      final int hash; // 哈希值，HashMap根据该值确定记录的位置
+      final K key; // key
+      V value; // value
+      Node&lt;K,V&gt; next;// 链表下一个节点
+
+      // 构造方法
+      Node(int hash, K key, V value, Node&lt;K,V&gt; next) {
+          this.hash = hash;
+          this.key = key;
+          this.value = value;
+          this.next = next;
+      }
+      // 返回 与 此项 对应的键
+      public final K getKey() { return key; }  
+      // 返回 与 此项 对应的值
+      public final V getValue(){ return value; } 
+      public final String toString() { return key + &quot;=&quot; + value; }
+
+      public final V setValue(V newValue) {
+          V oldValue = value;
+          value = newValue;
+          return oldValue;
+      }
+
+    /** 
+      * hashCode（） 
+      */
+      public final int hashCode() {
+          return Objects.hashCode(key) ^ Objects.hashCode(value);
+      }
+
+    /** 
+      * equals（）
+      * 作用：判断2个Entry是否相等，必须key和value都相等，才返回true  
+      */
+      public final boolean equals(Object o) {
+          if (o == this)
+              return true;
+          if (o instanceof Map.Entry) {
+              Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;
+              if (Objects.equals(key, e.getKey()) &amp;&amp;
+                  Objects.equals(value, e.getValue()))
+                  return true;
+          }
+          return false;
+      }
+  }</code></pre><h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><pre><code>   /** 
+* 主要参数 同  JDK 1.7 
+   * 即：容量、加载因子、扩容阈值（要求、范围均相同）
+   */
+
+  // 1. 容量（capacity）： 必须是2的幂 &amp; &lt;最大容量（2的30次方）
+// 默认容量=16=1&lt;&lt;4=00001中的1向左移4位=10000=十进制的2^4=16
+  static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; 
+  // 最大容量=2的30次方（若传入的容量过大，将被最大值替换）
+  static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30; 
+
+  // 2. 加载因子(Load factor)：HashMap在其容量达到某个范围会自动增加
+  final float loadFactor; // 实际加载因子
+  static final float DEFAULT_LOAD_FACTOR = 0.75f; //默认加载因子= 0.75
+
+  // 3. 扩容阈值（threshold）：当哈希表的大小 ≥ 扩容阈值时，就会扩容哈希表（即扩充HashMap的容量） 
+  // a. 扩容 = 对哈希表进行resize操作（即重建内部数据结构），从而哈希表将具有大约两倍的桶数
+  // b. 扩容阈值 = 容量 x 加载因子
+  int threshold;
+
+  // 4. 其他
+  transient Node&lt;K,V&gt;[] table;  // 存储数据的Node类型 数组，长度 = 2的幂；数组的每个元素 = 1个单链表
+  transient int size;// HashMap的大小，即 HashMap中存储的键值对的数量
+
+  /** 
+   * 与红黑树相关的参数
+   */
+   // 1. 桶的树化阈值：即 链表转成红黑树的阈值，在存储数据时，当链表长度 &gt; 该值时，则将链表转换成红黑树
+   static final int TREEIFY_THRESHOLD = 8; 
+   // 2. 桶的链表还原阈值：即 红黑树转为链表的阈值，当在扩容（resize（））时（此时HashMap的数据存储位置会重新计算），在重新计算存储位置后，当原有的红黑树内数量 &lt; 6时，则将 红黑树转换成链表
+   static final int UNTREEIFY_THRESHOLD = 6;
+   // 3. 最小树形化容量阈值：即 当哈希表中的容量 &gt; 该值时，才允许将链表 转换成红黑树  
+   // 否则，若桶内元素太多时，则直接扩容，而不是树形化
+   // 为了避免进行扩容、树形化选择的冲突，这个值不能小于 4 * TREEIFY_THRESHOLD
+   static final int MIN_TREEIFY_CAPACITY = 64;</code></pre><ol>
+<li>initialCapacity是HashMap的初始化容量(即初始化table时用到)，默认为16。   </li>
+<li>loadFactor为加载因子，默认为0.75。   </li>
+<li>加载因子过小会导致空间利用率低，频繁扩容也会消耗性能；</li>
+<li>加载因子过大会导致哈希冲突概率变大，链表变长，查找效率低。         </li>
+<li>threshold是HashMap进行扩容的阀值，当HashMap的存放的元素个数超过该值时，会进行扩容，它的值为HashMap的容量乘以负载因子。比如，HashMap的默认阀值为16*0.75，即12。</li>
+</ol>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><pre><code>/**
+  * 函数使用原型
+  */
+  Map&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();
+
+ /**
+   * 源码分析：主要是HashMap的构造函数 = 4个
+   * 仅贴出关于HashMap构造函数的源码
+   */
+
+public class HashMap&lt;K,V&gt;
+    extends AbstractMap&lt;K,V&gt;
+    implements Map&lt;K,V&gt;, Cloneable, Serializable{
+
+    // 省略上节阐述的参数
+
+  /**
+     * 构造函数1：默认构造函数（无参）
+     * 加载因子 &amp; 容量 = 默认 = 0.75、16
+     */
+    public HashMap() {
+        this.loadFactor = DEFAULT_LOAD_FACTOR;
+    }
+
+    /**
+     * 构造函数2：指定“容量大小”的构造函数
+     * 加载因子 = 默认 = 0.75 、容量 = 指定大小
+     */
+    public HashMap(int initialCapacity) {
+        // 实际上是调用指定“容量大小”和“加载因子”的构造函数
+        // 只是在传入的加载因子参数 = 默认加载因子
+        this(initialCapacity, DEFAULT_LOAD_FACTOR);
+
+    }
+
+    /**
+     * 构造函数3：指定“容量大小”和“加载因子”的构造函数
+     * 加载因子 &amp; 容量 = 自己指定
+     */
+    public HashMap(int initialCapacity, float loadFactor) {
+
+        // 指定初始容量必须非负，否则报错  
+            if (initialCapacity &lt; 0)  
+           throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +  
+                                           initialCapacity); 
+
+        // HashMap的最大容量只能是MAXIMUM_CAPACITY，哪怕传入的 &gt; 最大容量
+        if (initialCapacity &gt; MAXIMUM_CAPACITY)
+            initialCapacity = MAXIMUM_CAPACITY;
+
+        // 填充比必须为正  
+        if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))  
+            throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +  
+                                           loadFactor);  
+        // 设置 加载因子
+        this.loadFactor = loadFactor;
+
+        // 设置 扩容阈值
+        // 注：此处不是真正的阈值，仅仅只是将传入的容量大小转化为：&gt;传入容量大小的最小的2的幂，该阈值后面会重新计算
+        // 下面会详细讲解 -&gt;&gt; 分析1
+        this.threshold = tableSizeFor(initialCapacity); 
+
+    }
+
+    /**
+     * 构造函数4：包含“子Map”的构造函数
+     * 即 构造出来的HashMap包含传入Map的映射关系
+     * 加载因子 &amp; 容量 = 默认
+     */
+
+    public HashMap(Map&lt;? extends K, ? extends V&gt; m) {
+
+        // 设置容量大小 &amp; 加载因子 = 默认
+        this.loadFactor = DEFAULT_LOAD_FACTOR; 
+
+        // 将传入的子Map中的全部元素逐个添加到HashMap中
+        putMapEntries(m, false); 
+    }
+}
+
+   /**
+     * 分析1：tableSizeFor(initialCapacity)
+     * 作用：将传入的容量大小转化为：&gt;传入容量大小的最小的2的幂
+     * 与JDK 1.7对比：类似于JDK 1.7 中 inflateTable()里的 roundUpToPowerOf2(toSize)
+     */
+    static final int tableSizeFor(int cap) {
+     int n = cap - 1;
+     n |= n &gt;&gt;&gt; 1;
+     n |= n &gt;&gt;&gt; 2;
+     n |= n &gt;&gt;&gt; 4;
+     n |= n &gt;&gt;&gt; 8;
+     n |= n &gt;&gt;&gt; 16;
+     return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}</code></pre><h2 id="红黑树节点实现类"><a href="#红黑树节点实现类" class="headerlink" title="红黑树节点实现类"></a>红黑树节点实现类</h2><pre><code>/**
+ * 红黑树节点 实现类：继承自LinkedHashMap.Entry&lt;K,V&gt;类
+ */
+ static final class TreeNode&lt;K,V&gt; extends LinkedHashMap.Entry&lt;K,V&gt; {  
+
+     // 属性 = 父节点、左子树、右子树、删除辅助节点 + 颜色
+     TreeNode&lt;K,V&gt; parent;  
+   TreeNode&lt;K,V&gt; left;   
+   TreeNode&lt;K,V&gt; right;
+   TreeNode&lt;K,V&gt; prev;   
+   boolean red;   
+
+   // 构造函数
+   TreeNode(int hash, K key, V val, Node&lt;K,V&gt; next) {  
+       super(hash, key, val, next);  
+   }  
+
+   // 返回当前节点的根节点  
+   final TreeNode&lt;K,V&gt; root() {  
+       for (TreeNode&lt;K,V&gt; r = this, p;;) {  
+           if ((p = r.parent) == null)  
+               return r;  
+           r = p;  
+       }  
+   } </code></pre><h2 id="hash-函数"><a href="#hash-函数" class="headerlink" title="hash()函数"></a>hash()函数</h2><pre><code> // JDK 1.8实现：将 键key 转换成 哈希码（hash值）操作 = 使用hashCode() + 1次位运算 + 1次异或运算（2次扰动）  
+ // 1. 取hashCode值： h = key.hashCode()，hashCode()来自object方法。    
+ // 2. 高位参与低位的运算：h ^ (h &gt;&gt;&gt; 16)    
+ static final int hash(Object key) {   
+       int h; 
+       return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+       // a. 当key = null时，hash值 = 0，所以HashMap的key 可为null      
+       // 注：对比HashTable，HashTable对key直接hashCode（），若key为null时，会抛出异常，所以HashTable的key不可为null
+       // b. 当key ≠ null时，则通过先计算出 key的 hashCode()（记为h），然后 对哈希码进行 扰动处理： 按位 异或（^） 哈希码自身右移16位后的二进制
+}</code></pre><h2 id="indexFor-函数"><a href="#indexFor-函数" class="headerlink" title="indexFor()函数"></a>indexFor()函数</h2><pre><code>static int indexFor(int h, int length) {
+    return h &amp; (length-1);
+}</code></pre><p><strong>length为什么是偶数？</strong><br>length为HashMap的当前长度，首先看如何根据key值来找数组的下标，它是用key的哈希值 &amp; (length-1);<br>说法一：length是2的幂次方，所以一定是偶数，length-1为奇数，那么可以保证最低位为1，与hash值做与运算，代替求余运算提高性能，结果就取决于哈希值，所以在任何一个位置上都有可以被存放，减小哈希碰撞。<br>说法二：如果数组长度的二进制是0的话，key的hashcode值的每一位无论是1还是0做与运算都是0，这样重复的概率就变大，因此必须都是1，而2^N - 1可以使二进制每位都是1。<br>所以2的幂次方是为了①减少哈希碰撞 ②可以使用&amp;运算来提高效率</p>
+<h2 id="put-函数"><a href="#put-函数" class="headerlink" title="put()函数"></a>put()函数</h2><pre><code>/**
+  * 分析2：putVal(hash(key), key, value, false, true)
+  */
+  final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+            boolean evict) {
+
+     Node&lt;K,V&gt;[] tab; 
+     Node&lt;K,V&gt; p; 
+     int n, i;
+
+     // 1. 若哈希表的数组table为空，则 通过resize() 创建
+     // 所以，初始化哈希表的时机 = 第1次调用put函数时，即调用resize() 初始化创建
+        if ((tab = table) == null || (n = tab.length) == 0)
+         n = (tab = resize()).length;
+
+     // 2. 计算插入存储的数组索引i：根据键值key计算的hash值 得到
+     // 此处的数组下标计算方式 = i = (n - 1) &amp; hash
+
+     // 3. 插入时，需判断是否存在Hash冲突：
+     // 若不存在（即当前table[i] == null），则直接在该数组位置新建节点，插入完毕
+     // 否则，代表存在Hash冲突，即当前存储位置已存在节点，则依次往下判断：a. 当前位置的key是否与需插入的key相同、b. 判断需插入的数据结构是否为红黑树 or 链表
+     if ((p = tab[i = (n - 1) &amp; hash]) == null)
+         tab[i] = newNode(hash, key, value, null);  //new Node&lt;&gt;(hash, key, value, next)
+
+     else {
+         Node&lt;K,V&gt; e; 
+         K k;
+
+         // a. 判断 table[i]的元素的key是否与 需插入的key一样，若相同则 直接用新value 覆盖 旧value
+         // 判断原则：equals（）
+         if (p.hash == hash &amp;&amp;((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+             e = p;
+
+         // b. 继续判断：需插入的数据结构是否为红黑树 or 链表
+         // 若是红黑树，则直接在树中插入 or 更新键值对
+         else if (p instanceof TreeNode)
+             e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value); -&gt;&gt;分析3
+
+         // 若是链表,则在链表中插入 or 更新键值对
+         // i.  遍历table[i]，判断Key是否已存在：采用equals（） 对比当前遍历节点的key 与 需插入数据的key：若已存在，则直接用新value 覆盖 旧value
+         // ii. 遍历完毕后仍无发现上述情况，则直接在链表尾部插入数据
+         // 注：新增节点后，需判断链表长度是否&gt;8（8 = 桶的树化阈值）：若是，则把链表转换为红黑树
+
+         else {
+             for (int binCount = 0; ; ++binCount) {
+                 // 对于ii：若数组的下1个位置，表示已到表尾也没有找到key值相同节点，则新建节点 = 插入节点
+                 // 注：此处是从链表尾插入，与JDK 1.7不同（从链表头插入，即永远都是添加到数组的位置，原来数组位置的数据则往后移）
+                 if ((e = p.next) == null) {
+                     p.next = newNode(hash, key, value, null);
+
+                     // 插入节点后，若链表节点&gt;数阈值，则将链表转换为红黑树
+                     if (binCount &gt;= TREEIFY_THRESHOLD - 1) 
+                         treeifyBin(tab, hash); // 树化操作
+                     break;
+                 }
+
+                 // 对于i
+                 if (e.hash == hash &amp;&amp;((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                     break;
+
+                 // 更新p指向下一个节点，继续遍历
+                 p = e;
+             }
+         }
+
+         // 对i情况的后续操作：发现key已存在，直接用新value 覆盖 旧value &amp; 返回旧value
+         if (e != null) { 
+             V oldValue = e.value;
+             if (!onlyIfAbsent || oldValue == null)
+                 e.value = value;
+             afterNodeAccess(e); // 替换旧值时会调用的方法（默认实现为空）
+             return oldValue;
+         }
+     }
+
+     ++modCount;
+
+     // 插入成功后，判断实际存在的键值对数量size &gt; 最大容量threshold
+     // 若 &gt; ，则进行扩容 -&gt;&gt;分析4（但单独讲解，请直接跳出该代码块）
+     if (++size &gt; threshold)
+         resize();
+
+     afterNodeInsertion(evict);// 插入成功时会调用的方法（默认实现为空）
+     return null;
+
+ }
+
+     /**
+      * 分析3：putTreeVal(this, tab, hash, key, value)
+      * 作用：向红黑树插入 or 更新数据（键值对）
+      * 过程：遍历红黑树判断该节点的key是否与需插入的key 相同：
+      *      a. 若相同，则新value覆盖旧value
+      *      b. 若不相同，则插入
+      */
+
+  final TreeNode&lt;K,V&gt; putTreeVal(HashMap&lt;K,V&gt; map, Node&lt;K,V&gt;[] tab,
+                                        int h, K k, V v) {
+      Class&lt;?&gt; kc = null;
+      boolean searched = false;
+     TreeNode&lt;K,V&gt; root = (parent != null) ? root() : this;
+     for (TreeNode&lt;K,V&gt; p = root;;) {
+           int dir, ph; 
+         K pk;
+          if ((ph = p.hash) &gt; h)
+                dir = -1;
+           else if (ph &lt; h)
+              dir = 1;
+         else if ((pk = p.key) == k || (k != null &amp;&amp; k.equals(pk)))
+                return p;
+         else if ((kc == null &amp;&amp; (kc = comparableClassFor(k)) == null) || (dir = compareComparables(kc, k, pk)) == 0) {
+                if (!searched) {
+                  TreeNode&lt;K,V&gt; q, ch;
+                    searched = true;
+                 if (((ch = p.left) != null &amp;&amp;(q = ch.find(h, k, kc)) != null) ||((ch = p.right) != null &amp;&amp;
+                              (q = ch.find(h, k, kc)) != null))
+                        return q;
+               }
+                dir = tieBreakOrder(k, pk);
+         }
+
+         TreeNode&lt;K,V&gt; xp = p;
+         if ((p = (dir &lt;= 0) ? p.left : p.right) == null) {
+               Node&lt;K,V&gt; xpn = xp.next;
+             TreeNode&lt;K,V&gt; x = map.newTreeNode(h, k, v, xpn);
+              if (dir &lt;= 0)
+                    xp.left = x;
+                else
+                  xp.right = x;
+                 xp.next = x;
+                 x.parent = x.prev = xp;
+                  if (xpn != null)
+                     ((TreeNode&lt;K,V&gt;)xpn).prev = x;
+                    moveRootToFront(tab, balanceInsertion(root, x));
+                  return null;
+         }
+     }
+ }</code></pre><p><strong>put的流程:</strong>   </p>
+<ol>
+<li>先用key算hash值，然后取模，求位置    </li>
+<li>如果该位置没存放值那么就直接存放，    </li>
+<li>有的话，看是链表还是红黑树，如果是红黑树，遍历树看是否有一样的key，如果有就旧值覆盖新值，没有就插入到树中。如果是链表，遍历链表，是否有一样的key，如果有就旧值覆盖新值，没有就插入到链表尾部，然后看看是否需要转化为红黑树和是否需要扩容。</li>
+<li>key为null,存放在下标为0的位置。（取值为null）       </li>
+</ol>
+<ul>
+<li>关于需要同时比较hash值和key有以下两点需要注意  </li>
+</ul>
+<ol>
+<li>为什么比较了hash值还需要比较key：因为不同对象的hash值可能一样  </li>
+<li>为什么不只比较equal：因为equal可能被重写了，重写后的equal的效率要低于hash的直接比较</li>
+</ol>
+<h2 id="resize-函数"><a href="#resize-函数" class="headerlink" title="resize()函数"></a>resize()函数</h2><ul>
+<li>若当前容量 &gt; 最大值，则不扩容。</li>
+<li>否则，根据2倍当前容量来新建数组，保存旧数组数据，遍历旧数组上每个数据，重新计算每个数据在新数组上的位置，一个一个插入。然后将新数组引用到HashMap的table属性上。重新设置扩容阀值。HashMap扩容的阀值，值为HashMap的当前容量 * 负载因子，默认为12 = 16 * 0.75<br><img src="/2020/03/07/HashMap/2.jpg" alt><br><img src="/2020/03/07/HashMap/3.jpg" alt></li>
+</ul>
+<h2 id="get-函数"><a href="#get-函数" class="headerlink" title="get()函数"></a>get()函数</h2><p>计算要获取数据的hash值，得到存放在数组的位置，依次在该位置、红黑树、链表上寻找。    </p>
+<pre><code>/**
+ * 函数原型
+ * 作用：根据键key，向HashMap获取对应的值
+ */ 
+   map.get(key)；
+
+
+ /**
+   * 源码分析
+   */ 
+   public V get(Object key) {
+       Node&lt;K,V&gt; e;
+    // 1. 计算需获取数据的hash值
+    // 2. 通过getNode（）获取所查询的数据 -&gt;&gt;分析1
+    // 3. 获取后，判断数据是否为空
+    return (e = getNode(hash(key), key)) == null ? null : e.value;
+}
+
+/**
+   * 分析1：getNode(hash(key), key))
+   */ 
+final Node&lt;K,V&gt; getNode(int hash, Object key) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
+
+    // 1. 计算存放在数组table中的位置
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (first = tab[(n - 1) &amp; hash]) != null) {
+
+        // 4. 通过该函数，依次在数组、红黑树、链表中查找（通过equals（）判断）
+        // a. 先在数组中找，若存在，则直接返回
+        if (first.hash == hash &amp;&amp; // always check first node
+            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return first;
+
+        // b. 若数组中没有，则到红黑树中寻找
+        if ((e = first.next) != null) {
+            // 在树中get
+            if (first instanceof TreeNode)
+                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+
+            // c. 若红黑树中也没有，则通过遍历，到链表中寻找
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    return e;
+            } while ((e = e.next) != null);
+        }
+    }
+    return null;
+}</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/07/centos无法上网的问题/" rel="next" title="centos无法上网的问题">
+                <i class="fa fa-chevron-left"></i> centos无法上网的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Eleven">
+            
+              <p class="site-author-name" itemprop="name">Eleven</p>
+              <p class="site-description motion-element" itemprop="description">Insist on learning some technology every day.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMa简介"><span class="nav-number">1.</span> <span class="nav-text">HashMa简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">4.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树节点实现类"><span class="nav-number">5.</span> <span class="nav-text">红黑树节点实现类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-函数"><span class="nav-number">6.</span> <span class="nav-text">hash()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexFor-函数"><span class="nav-number">7.</span> <span class="nav-text">indexFor()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put-函数"><span class="nav-number">8.</span> <span class="nav-text">put()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resize-函数"><span class="nav-number">9.</span> <span class="nav-text">resize()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-函数"><span class="nav-number">10.</span> <span class="nav-text">get()函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eleven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
