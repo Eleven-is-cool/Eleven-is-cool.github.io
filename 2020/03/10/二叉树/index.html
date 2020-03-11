@@ -80,16 +80,13 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-5-最长回文子串,9-回文整数">
-<meta property="og:url" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/index.html">
+<meta property="og:title" content="二叉树">
+<meta property="og:url" content="http://yoursite.com/2020/03/10/二叉树/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/1.PNG">
-<meta property="og:image" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/2.PNG">
-<meta property="og:updated_time" content="2020-02-22T09:31:54.920Z">
+<meta property="og:updated_time" content="2020-03-10T13:26:27.720Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode-5-最长回文子串,9-回文整数">
-<meta name="twitter:image" content="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/1.PNG">
+<meta name="twitter:title" content="二叉树">
 
 
 
@@ -119,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/10/二叉树/">
 
 
 
 
 
-  <title>LeetCode-5-最长回文子串,9-回文整数 | Eleven's Blog</title>
+  <title>二叉树 | Eleven's Blog</title>
   
 
 
@@ -262,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/21/LeetCode-5-最长回文子串/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/二叉树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eleven">
@@ -279,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode-5-最长回文子串,9-回文整数</h1>
+          <h1 class="post-title" itemprop="name headline">二叉树</h1>
         
 
         <div class="post-meta">
@@ -291,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-21T21:59:10+08:00">
-                2020-02-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-10T21:25:45+08:00">
+                2020-03-10
               </time>
             
 
@@ -314,8 +311,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -352,131 +349,145 @@
 
       
         <hr>
-<a id="more"></a>   
-<h1 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="5-最长回文子串"></a>5-最长回文子串</h1><p><img src="/2020/02/21/LeetCode-5-最长回文子串/1.PNG" alt>  </p>
-<h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><pre><code>class Solution {
-    public boolean isPalindrome(String s){
-        int len = s.length();
-        for(int i=0;i&lt;len/2;i++){
-            if(s.charAt(i) != s.charAt(len-i-1))
-                return false;
+<a id="more"></a>    
+<h2 id="层次遍历-BFS"><a href="#层次遍历-BFS" class="headerlink" title="层次遍历-BFS"></a>层次遍历-BFS</h2><h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><pre><code>class Solution {
+    List&lt;List&lt;Integer&gt;&gt; res=new ArrayList&lt;List&lt;Integer&gt;&gt;();
+    public void helped(TreeNode root,int level){
+        if(res.size() == level)
+            res.add(new ArrayList&lt;Integer&gt;());
+        res.get(level).add(root.val);
+        if(root.left != null){
+            helped(root.left, level+1);
         }
-        return true;
+        if(root.right != null){
+            helped(root.right, level+1);
+        }
     }
-    public String longestPalindrome(String s) {
-        int max=0;
-        String res=&quot;&quot;;
-        int len = s.length();
-        for(int i=0;i&lt;len;i++){
-            for(int j=i+1;j&lt;=len;j++){
-                if(isPalindrome(s.substring(i,j)) &amp;&amp; max&lt;j-i){
-                    max = j-i;
-                    res = s.substring(i,j);
-                }
+    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+        if(root == null)
+            return res;
+        helped(root,0);
+        return res;
+    }
+}</code></pre><h4 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h4><pre><code>class Solution {   
+    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root){
+        List&lt;List&lt;Integer&gt;&gt; res=new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        if(root == null)
+            return res;
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;TreeNode&gt;();
+        queue.add(root);
+        int level = 0;
+        while(!queue.isEmpty()){
+            res.add(new ArrayList&lt;Integer&gt;());
+            int length = queue.size();
+
+            for(int i=0;i&lt;length;i++){
+                TreeNode r=queue.remove();
+                res.get(level).add(r.val);
+                if(r.left != null)
+                    queue.add(r.left);
+                if(r.right != null)
+                    queue.add(r.right);
+
             }
+            level++;
         }
         return res;
 
     }
-}  </code></pre><h2 id="动态规划（状态转移方程）"><a href="#动态规划（状态转移方程）" class="headerlink" title="动态规划（状态转移方程）"></a>动态规划（状态转移方程）</h2><pre><code>class Solution {
-    public String longestPalindrome(String s) {
-        int len = s.length();
-        if(len&lt;2)
-            return s;
-        int start = 0;
-        int maxlen = 1;
-        boolean[][] dp=new boolean[len][len];
-        for(int i=0;i&lt;len;i++){
-            dp[i][i] = true; //因为一个字符必是回文串，即表格对角线是true       
-        }
-        for(int j=1;j&lt;len;j++){
-            for(int i=0;i&lt;j;i++){
-                if(s.charAt(i) == s.charAt(j)){
-                    if(j-i+1&lt;=3)//长度等于3或者等于2时,不用考虑dp[i+1][j-1];
-                        dp[i][j] = true;
-                    else
-                        dp[i][j] = dp[i+1][j-1];
-                }
-                else{
-                    dp[i][j] = false;
-                }
-                if(dp[i][j]){
-                    int curlen = j-i+1;
-                    if(curlen &gt; maxlen){
-                        start = i;
-                        maxlen = curlen;
-                    }
-                }
 
-            }
-        }
-        return s.substring(start,start+maxlen);
+}</code></pre><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><h4 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h4><pre><code>class Solution {
+    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+    public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
+        middle(root);
+        return res;
     }
-}</code></pre><h2 id="中心扩展法"><a href="#中心扩展法" class="headerlink" title="中心扩展法"></a>中心扩展法</h2><pre><code>class Solution {
-    public String longestPalindrome(String s) {
-        int len=s.length();
-        if(len &lt; 2)
-            return s;
-        int maxlen = 1;
-        String res=s.substring(0, 1);;
-        for(int i=0;i&lt;len-1;i++){
-            String a=centerSpread(s,i,i);
-            String b=centerSpread(s,i,i+1);
-            String curmax = a.length()&gt;b.length()?a:b;
-            if(curmax.length() &gt; maxlen){
-                maxlen = curmax.length();
-                res = curmax;
+    public void middle(TreeNode root){
+        if(root==null)
+            return;
+        res.add(root.val);
+        middle(root.left);            
+        middle(root.right);
+    }
+}</code></pre><h4 id="迭代-1"><a href="#迭代-1" class="headerlink" title="迭代"></a>迭代</h4><pre><code>class Solution {
+    public List&lt;Integer&gt; preorderTraversal(TreeNode root) {
+        List&lt;Integer&gt; res=new ArrayList&lt;Integer&gt;();
+        Stack&lt;TreeNode&gt; s=new Stack&lt;TreeNode&gt;();
+        while(root!=null || !s.isEmpty()){
+            while(root!=null){
+                res.add(root.val);
+                s.push(root);
+                root=root.left;
             }
+            TreeNode pop=s.pop();
+            root=pop.right;
+        }
+        return res;
+    }    
+}</code></pre><h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><h4 id="递归-2"><a href="#递归-2" class="headerlink" title="递归"></a>递归</h4><pre><code>class Solution {
+    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+    public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
+        middle(root);
+        return res;
+    }
+    public void middle(TreeNode root){
+        if(root==null)
+            return;
+        middle(root.left);
+        res.add(root.val);
+        middle(root.right);
+    }
+}</code></pre><h4 id="迭代-2"><a href="#迭代-2" class="headerlink" title="迭代"></a>迭代</h4><pre><code>class Solution {
+    public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        Stack&lt;TreeNode&gt; s = new Stack&lt;&gt;();
+        while(root != null || !s.isEmpty()){
+            while(root != null){
+                s.push(root);
+                root = root.left;
+            }
+            root = s.pop();
+            res.add(root.val);
+            root = root.right;
         }
         return res;
     }
-    public String centerSpread(String s, int left ,int right){
-        //left==right时，是以中心字母扩散
-        //left==right-1时，是以中心缝隙扩散
-        int len = s.length();
-        while(left&gt;= 0 &amp;&amp; right&lt;len){
-            if(s.charAt(left) == s.charAt(right)){
-                left--;
-                right++;
+}</code></pre><h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><h4 id="递归-3"><a href="#递归-3" class="headerlink" title="递归"></a>递归</h4><pre><code>class Solution {
+    List&lt;Integer&gt; res=new ArrayList&lt;Integer&gt;();
+    public List&lt;Integer&gt; postorderTraversal(TreeNode root) {
+        after(root);
+        return res;
+    }
+    public void after(TreeNode root) {
+        if(root==null)
+            return;
+        after(root.left);
+        after(root.right);
+        res.add(root.val);
+    }
+}</code></pre><h4 id="迭代-3"><a href="#迭代-3" class="headerlink" title="迭代"></a>迭代</h4><pre><code>class Solution {
+    public List&lt;Integer&gt; postorderTraversal(TreeNode root) {
+
+        List&lt;Integer&gt; res=new ArrayList&lt;Integer&gt;();
+        Stack&lt;TreeNode&gt; s=new Stack&lt;TreeNode&gt;();
+        TreeNode cur=root;
+        TreeNode last=null;
+        while(cur!=null || !s.isEmpty()){
+            while(cur!=null){
+                s.push(cur);
+                cur=cur.left;
             }
-            else
-                break;
+            cur=s.peek();
+            if(cur.right==null || cur.right==last){
+                res.add(cur.val);
+                s.pop();
+                last=cur;
+                cur=null;
+            }else{
+                cur=cur.right;
+            }
         }
-        return s.substring(left+1,right);//跳出循环时,s.charAt(left)!=s.charAt(right),所以不可取这两个端点
-    }
-}</code></pre><h1 id="9-回文整数"><a href="#9-回文整数" class="headerlink" title="9-回文整数"></a>9-回文整数</h1><p><img src="/2020/02/21/LeetCode-5-最长回文子串/2.PNG" alt>   </p>
-<h2 id="反转整数（可能溢出）"><a href="#反转整数（可能溢出）" class="headerlink" title="反转整数（可能溢出）"></a>反转整数（可能溢出）</h2><p>如果将整个整数反转，可能存在溢出的情况，所以需要考虑溢出情况，LeetCode这道题没有对溢出做出要求，所以就省去溢出检查的步骤。 </p>
-<pre><code>class Solution {
-    public boolean isPalindrome(int x) {
-        if(x&lt;0)
-            return false;
-        int cur=x;
-        int res=0;
-        while(cur!=0){
-            int pop=cur%10;
-            res = res *10+pop;
-            cur = cur/10;
-        }
-        if(res == x)
-            return true;
-        return false;
-
-    }
-}</code></pre><h2 id="反转一半即可"><a href="#反转一半即可" class="headerlink" title="反转一半即可"></a>反转一半即可</h2><p>例如1221，只需将后半部分的21反转成12，然后与前半部分比较，相等就是回文整数，<strong>采用后半部分反转结果是否大于前半部分</strong>来判断是否反转整数的一半。   </p>
-<pre><code>class Solution {
-    public boolean isPalindrome(int x) {
-        if(x&lt;0 || (x % 10 == 0 &amp;&amp; x != 0))//复数 || x最后一位是0,那么就只有0满足要求
-            return false;
-        int pre_res=0;
-        while(pre_res &lt; x){
-            int pop=x%10;
-            pre_res = pre_res*10 + pop;
-            x /= 10;
-        }
-        if(x == pre_res || x == pre_res/10)//12321这样的奇数,pre_res=123
-            return true;
-        return false;
-
+        return res;
     }
 }</code></pre>
       
@@ -502,8 +513,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/20/LeetCode-2-两数相加/" rel="next" title="LeetCode-2-两数相加">
-                <i class="fa fa-chevron-left"></i> LeetCode-2-两数相加
+              <a href="/2020/03/07/HashMap/" rel="next" title="HashMap">
+                <i class="fa fa-chevron-left"></i> HashMap
               </a>
             
           </div>
@@ -511,10 +522,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/22/LeetCode-7-整数反转/" rel="prev" title="LeetCode-7-整数反转">
-                LeetCode-7-整数反转 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -639,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#5-最长回文子串"><span class="nav-number">1.</span> <span class="nav-text">5-最长回文子串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力法"><span class="nav-number">1.1.</span> <span class="nav-text">暴力法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划（状态转移方程）"><span class="nav-number">1.2.</span> <span class="nav-text">动态规划（状态转移方程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心扩展法"><span class="nav-number">1.3.</span> <span class="nav-text">中心扩展法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-回文整数"><span class="nav-number">2.</span> <span class="nav-text">9-回文整数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反转整数（可能溢出）"><span class="nav-number">2.1.</span> <span class="nav-text">反转整数（可能溢出）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转一半即可"><span class="nav-number">2.2.</span> <span class="nav-text">反转一半即可</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#层次遍历-BFS"><span class="nav-number">1.</span> <span class="nav-text">层次遍历-BFS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">1.0.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代"><span class="nav-number">1.0.2.</span> <span class="nav-text">迭代</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#前序遍历"><span class="nav-number">2.</span> <span class="nav-text">前序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">迭代</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中序遍历"><span class="nav-number">3.</span> <span class="nav-text">中序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代-2"><span class="nav-number">3.0.2.</span> <span class="nav-text">迭代</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后序遍历"><span class="nav-number">4.</span> <span class="nav-text">后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归-3"><span class="nav-number">4.0.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代-3"><span class="nav-number">4.0.2.</span> <span class="nav-text">迭代</span></a></li></ol></li></div>
             
 
           </div>

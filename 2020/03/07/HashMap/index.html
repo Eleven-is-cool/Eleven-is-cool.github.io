@@ -85,10 +85,9 @@
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/1.webp">
 <meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/2.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/03/07/HashMap/3.jpg">
-<meta property="og:updated_time" content="2020-03-08T05:51:03.937Z">
+<meta property="og:updated_time" content="2020-03-08T07:39:09.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap">
 <meta name="twitter:image" content="http://yoursite.com/2020/03/07/HashMap/1.jpg">
@@ -356,7 +355,7 @@
         <hr>
 <a id="more"></a>    
 <h2 id="HashMa简介"><a href="#HashMa简介" class="headerlink" title="HashMa简介"></a>HashMa简介</h2><p>HashMap继承了Map接口,主要用来存放键值对。<br>JDK1.8 之前HashMap由数组+链表组成的，数组是HashMap的主体，链表则是主要为了解决哈希冲突而存在的（“拉链法”解决冲突）<br>JDK1.8 以后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）时，将链表转化为红黑树，以减少搜索时间。<br><img src="/2020/03/07/HashMap/1.jpg" alt="image">       </p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="/2020/03/07/HashMap/1.webp" alt="image"><br>HashMap的数据是存在table数组中的，它是一个Entry数组,JDK8中取名为Node，Entry是HashMap的一个静态内部类。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>HashMap的数据是存在table数组中的，它是一个Entry数组,JDK8中取名为Node，Entry是HashMap的一个静态内部类。</p>
 <pre><code>/** 
 * Node  = HashMap的内部类，实现了Map.Entry接口，本质是键值对
 * 实现了getKey()、getValue()、equals(Object o)和hashCode()等方法
@@ -784,7 +783,8 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
         }
     }
     return null;
-}</code></pre>
+}</code></pre><h2 id="线程不安全"><a href="#线程不安全" class="headerlink" title="线程不安全"></a>线程不安全</h2><p>此时若（多线程）并发执行 put()操作，一旦出现扩容情况，则容易出现环形链表，从而在获取数据、遍历链表时形成死循环，即 死锁的状态。  </p>
+
       
     </div>
     
@@ -817,6 +817,10 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/10/二叉树/" rel="prev" title="二叉树">
+                二叉树 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -895,7 +899,7 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -941,7 +945,7 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMa简介"><span class="nav-number">1.</span> <span class="nav-text">HashMa简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">4.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树节点实现类"><span class="nav-number">5.</span> <span class="nav-text">红黑树节点实现类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-函数"><span class="nav-number">6.</span> <span class="nav-text">hash()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexFor-函数"><span class="nav-number">7.</span> <span class="nav-text">indexFor()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put-函数"><span class="nav-number">8.</span> <span class="nav-text">put()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resize-函数"><span class="nav-number">9.</span> <span class="nav-text">resize()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-函数"><span class="nav-number">10.</span> <span class="nav-text">get()函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMa简介"><span class="nav-number">1.</span> <span class="nav-text">HashMa简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">4.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树节点实现类"><span class="nav-number">5.</span> <span class="nav-text">红黑树节点实现类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-函数"><span class="nav-number">6.</span> <span class="nav-text">hash()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexFor-函数"><span class="nav-number">7.</span> <span class="nav-text">indexFor()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put-函数"><span class="nav-number">8.</span> <span class="nav-text">put()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resize-函数"><span class="nav-number">9.</span> <span class="nav-text">resize()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-函数"><span class="nav-number">10.</span> <span class="nav-text">get()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程不安全"><span class="nav-number">11.</span> <span class="nav-text">线程不安全</span></a></li></ol></div>
             
 
           </div>
