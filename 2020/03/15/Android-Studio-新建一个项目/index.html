@@ -93,10 +93,9 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/7.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/8.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/9.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/15.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/16.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/17.png">
-<meta property="og:updated_time" content="2020-03-15T04:06:46.642Z">
+<meta property="og:updated_time" content="2020-03-21T12:47:06.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-Studio-新建一个项目">
 <meta name="twitter:image" content="http://yoursite.com/2020/03/15/Android-Studio-新建一个项目/1.png">
@@ -465,18 +464,21 @@ android:orientation=&quot;vertical&quot;&gt;
 ![](13.png)    
 ![](14.png)   
 ## 启动    </li>
-<li><p>.java文件中onCreate补充代码如下：     </p>
-<pre><code>&lt;activity android:name=&quot;.QQ登录&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
-        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;</code></pre></li>
+<li><p>java文件中onCreate补充代码如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   ![](15.png)       </span><br><span class="line"></span><br><span class="line">2. 补充AndroidManifest.xml中代码:    &lt;activity</span><br></pre></td></tr></table></figure></p>
+<p>android:name=”.QQ登录”&gt;</p>
+   <intent-filter>
+       <action android:name="android.intent.action.MAIN">
+       <category android:name="android.intent.category.LAUNCHER">
+   </category></action></intent-filter>
+   
+```
+
+
+</li>
 </ol>
-<p><img src="/2020/03/15/Android-Studio-新建一个项目/15.png" alt>       </p>
-<ol start="2">
-<li>补充AndroidManifest.xml中代码:<br><code>setContentView(R.layout.login_layout);</code><br><img src="/2020/03/15/Android-Studio-新建一个项目/16.png" alt>    <h2 id="启动模拟器（在主页长按鼠标往上拉可以找到应用）"><a href="#启动模拟器（在主页长按鼠标往上拉可以找到应用）" class="headerlink" title="启动模拟器（在主页长按鼠标往上拉可以找到应用）"></a>启动模拟器（在主页长按鼠标往上拉可以找到应用）</h2><img src="/2020/03/15/Android-Studio-新建一个项目/17.png" alt>      </li>
-</ol>
+<p>  <img src="/2020/03/15/Android-Studio-新建一个项目/16.png" alt>    </p>
+<h2 id="启动模拟器（在主页长按鼠标往上拉可以找到应用）"><a href="#启动模拟器（在主页长按鼠标往上拉可以找到应用）" class="headerlink" title="启动模拟器（在主页长按鼠标往上拉可以找到应用）"></a>启动模拟器（在主页长按鼠标往上拉可以找到应用）</h2><p><img src="/2020/03/15/Android-Studio-新建一个项目/17.png" alt>      </p>
+<p>​        </p>
 
       
     </div>
@@ -592,7 +594,7 @@ android:orientation=&quot;vertical&quot;&gt;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -603,7 +605,7 @@ android:orientation=&quot;vertical&quot;&gt;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
