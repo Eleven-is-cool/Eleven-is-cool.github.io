@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mapreduce">
+<meta property="og:url" content="http://yoursite.com/2020/04/02/Mapreduce/index.html">
+<meta property="og:site_name" content="Eleven&#39;s Blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/04/02/Mapreduce/C:%5CUsers%5CEleven%5Cblog%5Csource_posts%5CMapreduce%5C1.jpg">
+<meta property="og:updated_time" content="2020-04-02T15:43:49.652Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mapreduce">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/02/Mapreduce/C:%5CUsers%5CEleven%5Cblog%5Csource_posts%5CMapreduce%5C1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/02/Mapreduce/">
+
+
+
+
+
+  <title>Mapreduce | Eleven's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eleven's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/Mapreduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eleven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eleven's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mapreduce</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T22:32:32+08:00">
+                2020-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>    
+
+<h2 id="MapReduce工作原理"><a href="#MapReduce工作原理" class="headerlink" title="MapReduce工作原理"></a>MapReduce工作原理</h2><p><img src="/2020/04/02/Mapreduce/C:%5CUsers%5CEleven%5Cblog%5Csource_posts%5CMapreduce%5C1.jpg" alt></p>
+<h4 id="①Map阶段"><a href="#①Map阶段" class="headerlink" title="①Map阶段"></a>①Map阶段</h4><ol>
+<li><p>将输入的多个分片（Split）由Map任务以完全并行的方式处理。   </p>
+</li>
+<li><p>每个分片由一个Map任务来处理</p>
+</li>
+<li><p>每个Map任务对输入分片的记录按照一定的规则解析成对</p>
+</li>
+<li><p>进行文本处理的时候，文本每一行就执行一次Map</p>
+</li>
+<li><p>由于频繁的磁盘I/O会降低效率，因此Map任务的输出&lt;key,value&gt;对会首先存储在Map任务所在节点的内存缓冲区中</p>
+</li>
+<li><p>在数据溢写到磁盘之前，会对数据进行分区(Partition)。</p>
+<p><strong>•</strong> 分区的数量与设置的Reduce任务的数量相同（默认为1，可以在编写MapReduce程序时修改）</p>
+<p><strong>•</strong> 数据分区的划分规则：取&lt;key,value&gt;中对key的hashCode值，然后对Reduce任务数量求余数，余数为分区编号，分区编号相一致的&lt;key,value&gt;则属于同一个分区</p>
+<p><strong>•</strong> MapReduce提供默认的分区类:HashPartitioner</p>
+<p><strong>•</strong> 分区后，会对同一分区中的&lt;key,value&gt;对按照key进行排序，默认升序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@InterfaceAudience</span>.Public</span><br><span class="line"><span class="meta">@InterfaceStability</span>.Stable</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapper</span>&lt;<span class="title">KEYIN</span>, <span class="title">VALUEIN</span>, <span class="title">KEYOUT</span>, <span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The &lt;code&gt;Context&lt;/code&gt; passed on to the &#123;<span class="doctag">@link</span> Mapper&#125; implementations.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">MapContext</span>&lt;<span class="title">KEYIN</span>,<span class="title">VALUEIN</span>,<span class="title">KEYOUT</span>,<span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Called once at the beginning of the task.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                       )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// NOTHING</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Called once for each key/value pair in the input split. Most applications</span></span><br><span class="line"><span class="comment">   * should override this, but the default is the identity function.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(KEYIN key, VALUEIN value, </span></span></span><br><span class="line"><span class="function"><span class="params">                     Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    context.write((KEYOUT) key, (VALUEOUT) value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Called once at the end of the task.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">cleanup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// NOTHING</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Expert users can override this method for more complete control over the</span></span><br><span class="line"><span class="comment">   * execution of the Mapper.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> context</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span> (context.nextKeyValue()) &#123;</span><br><span class="line">        map(context.getCurrentKey(), context.getCurrentValue(), context);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h4 id="②Shuffle阶段"><a href="#②Shuffle阶段" class="headerlink" title="②Shuffle阶段"></a>②Shuffle阶段</h4><p>将Map任务的无规则输出形成一定的有规则数据，以便Reduce任务进行处理。&lt;key,&lt;1,1,1,1&gt;&gt;</p>
+<h4 id="③Reduce阶段"><a href="#③Reduce阶段" class="headerlink" title="③Reduce阶段"></a>③Reduce阶段</h4><ol>
+<li><p>首先对Map阶段的输出结果按照分区进行再一次合并，将同一分区的&lt;key,value&gt;对合并到一起，然后按照key对对分区中的&lt;key,value&gt;对进行排序。</p>
+</li>
+<li><p>每个分区将排序后的&lt;key,value&gt;对按照key进行分组，key相同的&lt;key,value&gt;对合并为&lt;key,value-list&gt;对，最终每个分区形成多个&lt;key,value-list&gt;对。</p>
+</li>
+<li><p>排序并分组后的分区数据将会输入到reduce()方法进行处理，reduce()方法一次只能处理一个&lt;key,value-list&gt;对。</p>
+</li>
+<li><p>最后，reduce()将处理结果仍然以&lt;key,value&gt;对的形式通过context.write(key,value)进行输出。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Checkpointable</span></span><br><span class="line"><span class="meta">@InterfaceAudience</span>.Public</span><br><span class="line"><span class="meta">@InterfaceStability</span>.Stable</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Reducer</span>&lt;<span class="title">KEYIN</span>,<span class="title">VALUEIN</span>,<span class="title">KEYOUT</span>,<span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The &lt;code&gt;Context&lt;/code&gt; passed on to the &#123;<span class="doctag">@link</span> Reducer&#125; implementations.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">ReduceContext</span>&lt;<span class="title">KEYIN</span>,<span class="title">VALUEIN</span>,<span class="title">KEYOUT</span>,<span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Called once at the start of the task.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                       )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// NOTHING</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * This method is called once for each key. Most applications will define</span></span><br><span class="line"><span class="comment">   * their reduce class by overriding this method. The default implementation</span></span><br><span class="line"><span class="comment">   * is an identity function.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(KEYIN key, Iterable&lt;VALUEIN&gt; values, Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                        )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(VALUEIN value: values) &#123;</span><br><span class="line">      context.write((KEYOUT) key, (VALUEOUT) value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Called once at the end of the task.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">cleanup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// NOTHING</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Advanced application writers can use the </span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@link</span> #run(org.apache.hadoop.mapreduce.Reducer.Context)&#125; method to</span></span><br><span class="line"><span class="comment">   * control how the reduce task works.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span> (context.nextKey()) &#123;</span><br><span class="line">        reduce(context.getCurrentKey(), context.getValues(), context);</span><br><span class="line">        <span class="comment">// If a back up store is used, reset it</span></span><br><span class="line">        Iterator&lt;VALUEIN&gt; iter = context.getValues().iterator();</span><br><span class="line">        <span class="keyword">if</span>(iter <span class="keyword">instanceof</span> ReduceContext.ValueIterator) &#123;</span><br><span class="line">          ((ReduceContext.ValueIterator&lt;VALUEIN&gt;)iter).resetBackupStore();        </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MapReduce实例应用"><a href="#MapReduce实例应用" class="headerlink" title="MapReduce实例应用"></a>MapReduce实例应用</h2><h3 id="单词计数"><a href="#单词计数" class="headerlink" title="单词计数"></a>单词计数</h3><h5 id="Map类"><a href="#Map类" class="headerlink" title="Map类"></a>Map类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		<span class="comment">//1.数据类型转换和以空格切分单词</span></span><br><span class="line">		String[] line=value.toString().split(<span class="string">" "</span>);</span><br><span class="line">		<span class="comment">//2.循环遍历单词</span></span><br><span class="line">		<span class="keyword">for</span>(String word:line)</span><br><span class="line">			<span class="comment">//3.输出结果</span></span><br><span class="line">			context.write(<span class="keyword">new</span> Text(word), <span class="keyword">new</span> IntWritable(<span class="number">1</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Reduce类"><a href="#Reduce类" class="headerlink" title="Reduce类"></a>Reduce类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key,Iterable&lt;IntWritable&gt; values,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="comment">//1.循环遍历迭代器,累加相同结果</span></span><br><span class="line">		<span class="keyword">for</span>(IntWritable v:values)</span><br><span class="line">			sum += v.get();</span><br><span class="line">		<span class="comment">//2.输出结果</span></span><br><span class="line">		context.write(key, <span class="keyword">new</span> IntWritable(sum));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Job类"><a href="#Job类" class="headerlink" title="Job类"></a>Job类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCount</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( String[] args )</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    	</span><br><span class="line">		Configuration conf =<span class="keyword">new</span> Configuration();</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">//新建Job</span></span><br><span class="line">		Job job = Job.getInstance(conf,WordCount.class.getName());</span><br><span class="line">		job.setJarByClass(WordCount.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//设置Mapper、Reducer</span></span><br><span class="line">		job.setMapperClass(WordCountMapper.class);</span><br><span class="line">		job.setReducerClass(WordCountReducer.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//设置Map输出类型</span></span><br><span class="line">		job.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job.setMapOutputValueClass(IntWritable.class);</span><br><span class="line">		<span class="comment">//设置Reduce输出类型</span></span><br><span class="line">		job.setOutputKeyClass(Text.class);</span><br><span class="line">		job.setOutputValueClass(IntWritable.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//job.setCombinerClass(WordCountReducer.class);</span></span><br><span class="line">        </span><br><span class="line">		<span class="comment">//设置输入输出格式</span></span><br><span class="line">		job.setInputFormatClass(TextInputFormat.class);</span><br><span class="line">		job.setOutputFormatClass(TextOutputFormat.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//设置输入输出路径</span></span><br><span class="line">		FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]+<span class="string">"/input"</span>));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]+<span class="string">"/output"</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//提交作业</span></span><br><span class="line">		job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h3><h5 id="Map类-1"><a href="#Map类-1" class="headerlink" title="Map类"></a>Map类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniqueMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		context.write(value, <span class="keyword">new</span> Text());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Reduce类-1"><a href="#Reduce类-1" class="headerlink" title="Reduce类"></a>Reduce类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniqueReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key,Iterable&lt;Text&gt; values,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		context.write(key, <span class="keyword">new</span> Text());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="去重计数"><a href="#去重计数" class="headerlink" title="去重计数"></a>去重计数</h3><h5 id="Map类-2"><a href="#Map类-2" class="headerlink" title="Map类"></a>Map类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserCountMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		<span class="comment">//数据类型转换和以制表符切分单词</span></span><br><span class="line">		String[] line=value.toString().split(<span class="string">"\t"</span>);</span><br><span class="line">		<span class="comment">//key: 用户ID   value：因为不需要map的value做计算，随便赋值即可</span></span><br><span class="line">		context.write(<span class="keyword">new</span> Text(line[<span class="number">1</span>]),<span class="keyword">new</span> Text());</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Reduce类-2"><a href="#Reduce类-2" class="headerlink" title="Reduce类"></a>Reduce类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserCountReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt;</span>&#123;</span><br><span class="line">	<span class="comment">//No：计数器</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> No = <span class="number">1</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key,Iterable&lt;Text&gt; values,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		context.write(<span class="keyword">new</span> Text(String.valueOf(No)),key);</span><br><span class="line">		No++;	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二次排序"><a href="#二次排序" class="headerlink" title="二次排序"></a>二次排序</h3><h5 id="自定义map的key类型"><a href="#自定义map的key类型" class="headerlink" title="自定义map的key类型"></a>自定义map的key类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortKeyPair</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">SecondarySortKeyPair</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String first;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> second;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput input)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.first = input.readUTF();</span><br><span class="line">		<span class="keyword">this</span>.second = input.readInt();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput output)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">		output.writeUTF(first);</span><br><span class="line">		output.writeInt(second);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(SecondarySortKeyPair k)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> res = <span class="keyword">this</span>.first.compareTo(k.getFirst());</span><br><span class="line">		<span class="keyword">if</span>(res!=<span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> res;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> -Integer.valueOf(<span class="keyword">this</span>.second).compareTo(Integer.valueOf(k.getSecond()));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> first;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(String first)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.first=first;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSecond</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> second;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(<span class="keyword">int</span> second)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.second=second;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">SecondarySortKeyPair</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(SecondarySortKeyPair key,Iterable&lt;IntWritable&gt; values,Reducer&lt;SecondarySortKeyPair,IntWritable,Text,IntWritable&gt;.Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		Text outKey=<span class="keyword">new</span> Text();</span><br><span class="line">		<span class="keyword">for</span>(IntWritable v:values) &#123;</span><br><span class="line">			outKey.set(key.getFirst());</span><br><span class="line">			context.write(outKey, v);</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortPartitioner</span> <span class="keyword">extends</span> <span class="title">Partitioner</span>&lt;<span class="title">SecondarySortKeyPair</span>,<span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPartition</span><span class="params">(SecondarySortKeyPair keyPair,IntWritable vaule,<span class="keyword">int</span> numPartitions)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (keyPair.getFirst().hashCode()&amp;Integer.MAX_VALUE)%numPartitions;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Map类-3"><a href="#Map类-3" class="headerlink" title="Map类"></a>Map类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">SecondarySortKeyPair</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Mapper&lt;LongWritable,Text,SecondarySortKeyPair,IntWritable&gt;.Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		String line=value.toString();</span><br><span class="line">		String[] ss=line.split(<span class="string">"\t"</span>);</span><br><span class="line">		SecondarySortKeyPair outKey=<span class="keyword">new</span> SecondarySortKeyPair();</span><br><span class="line">		outKey.setFirst(ss[<span class="number">0</span>]);	</span><br><span class="line">		outKey.setSecond(Integer.valueOf(ss[<span class="number">1</span>]));</span><br><span class="line">		IntWritable outValue=<span class="keyword">new</span> IntWritable();</span><br><span class="line">		outValue.set(Integer.valueOf(ss[<span class="number">1</span>]));</span><br><span class="line">		context.write(outKey, outValue);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Reduce类-3"><a href="#Reduce类-3" class="headerlink" title="Reduce类"></a>Reduce类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">SecondarySortKeyPair</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(SecondarySortKeyPair key,Iterable&lt;IntWritable&gt; values,Reducer&lt;SecondarySortKeyPair,IntWritable,Text,IntWritable&gt;.Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		Text outKey=<span class="keyword">new</span> Text();</span><br><span class="line">		<span class="keyword">for</span>(IntWritable v:values) &#123;</span><br><span class="line">			outKey.set(key.getFirst());</span><br><span class="line">			context.write(outKey, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Job类-1"><a href="#Job类-1" class="headerlink" title="Job类"></a>Job类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf =<span class="keyword">new</span> Configuration();</span><br><span class="line">  	</span><br><span class="line">  	<span class="comment">//新建Job</span></span><br><span class="line">Job job = Job.getInstance(conf,unique.class.getName());</span><br><span class="line">job.setJarByClass(unique.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置Mapper、Map输出类型</span></span><br><span class="line">job.setMapperClass(SecondarySortMapper.class);</span><br><span class="line">job.setPartitionerClass(SecondarySortPartitioner.class);</span><br><span class="line">job.setGroupingComparatorClass(SecondarySortGroupComparator.class);</span><br><span class="line">job.setReducerClass(SecondarySortReducer.class);</span><br><span class="line"></span><br><span class="line">job.setMapOutputKeyClass(SecondarySortKeyPair.class);</span><br><span class="line">job.setMapOutputValueClass(IntWritable.class);		</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//设置Reduce输出类型</span></span><br><span class="line">job.setOutputKeyClass(Text.class);</span><br><span class="line">job.setOutputValueClass(IntWritable.class);		</span><br><span class="line"></span><br><span class="line">job.setInputFormatClass(TextInputFormat.class);</span><br><span class="line">job.setOutputFormatClass(TextOutputFormat.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入第一个文件路径</span></span><br><span class="line">FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]+<span class="string">"/input"</span>));		</span><br><span class="line">FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(args[<span class="number">1</span>]+<span class="string">"output"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//提交作业</span></span><br><span class="line">job.waitForCompletion(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="利用cleanup处理复杂的应用"><a href="#利用cleanup处理复杂的应用" class="headerlink" title="利用cleanup处理复杂的应用"></a>利用cleanup处理复杂的应用</h3><p><strong>任务要求：</strong>对有39列的汽车销售记录进行处理，得到每月每种车型的销售总量，以及每月的销售总量，并对其进行二次排序输出。</p>
+<p><strong>思路：</strong>分成两个mapreduce来完成，第一个mapreduce用来统计每月每种品牌的销量，并对每月的销量进行统计，第二个mapreduce将一个mapreduce的结果进行二次排序。</p>
+<h5 id="第一个Map类"><a href="#第一个Map类" class="headerlink" title="第一个Map类"></a>第一个Map类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MonthCarMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		<span class="comment">//以逗号切分</span></span><br><span class="line">		String[] line=value.toString().split(<span class="string">","</span>);</span><br><span class="line">		<span class="comment">//首先判断列数是否为39</span></span><br><span class="line">		<span class="keyword">if</span>(line.length == <span class="number">39</span>) &#123;			</span><br><span class="line">			<span class="comment">//月份</span></span><br><span class="line">			String month = line[<span class="number">1</span>];</span><br><span class="line">			<span class="comment">//品牌</span></span><br><span class="line">			String car = line[<span class="number">7</span>];</span><br><span class="line">			<span class="comment">//判断所需要的属性是否为空值</span></span><br><span class="line">			<span class="keyword">if</span>(car.length()!=<span class="number">0</span> &amp;&amp; month.length()!=<span class="number">0</span>) &#123;				</span><br><span class="line">				<span class="comment">//写入</span></span><br><span class="line">				context.write(<span class="keyword">new</span> Text(month + <span class="string">","</span> + car), <span class="keyword">new</span> IntWritable(<span class="number">1</span>));			</span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="第一个Reduce类"><a href="#第一个Reduce类" class="headerlink" title="第一个Reduce类"></a>第一个Reduce类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MonthCarReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	<span class="comment">//存放reduce后的每个结果</span></span><br><span class="line">	HashMap&lt;String,Integer&gt; hashmap = <span class="keyword">new</span> HashMap&lt;String,Integer&gt;();</span><br><span class="line">	<span class="comment">//存放车型结果，key：月份，value：销售数量</span></span><br><span class="line">	HashMap&lt;String,Integer&gt; hashmapMonth = <span class="keyword">new</span> HashMap&lt;String,Integer&gt;();</span><br><span class="line">	</span><br><span class="line"> 	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key,Iterable&lt;IntWritable&gt; values,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;		</span><br><span class="line">		<span class="comment">//循环遍历迭代器,累加相同结果</span></span><br><span class="line">		<span class="keyword">for</span>(IntWritable v:values)</span><br><span class="line">			sum += v.get();</span><br><span class="line">		<span class="comment">//写入hashmap</span></span><br><span class="line">		hashmap.put(key.toString(), sum);</span><br><span class="line">		<span class="comment">//输出结果</span></span><br><span class="line">		context.write(key, <span class="keyword">new</span> IntWritable(sum));</span><br><span class="line">	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cleanup</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException </span>&#123;	</span><br><span class="line"> 		<span class="comment">//对hashmap的每条记录进行遍历，将hashmap的key进行分割得到月份（k[0]），统计放入hashmapMonth</span></span><br><span class="line"> 		<span class="keyword">for</span>(String key:hashmap.keySet())&#123;</span><br><span class="line"> 	    	String[] k=key.split(<span class="string">","</span>);	    	</span><br><span class="line"> 	    	<span class="keyword">if</span>(hashmapMonth.containsKey(k[<span class="number">0</span>])) &#123;</span><br><span class="line"> 	    		hashmapMonth.put(k[<span class="number">0</span>], hashmapMonth.get(k[<span class="number">0</span>]) + hashmap.get(key));</span><br><span class="line"> 	    	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line"> 	    		hashmapMonth.put(k[<span class="number">0</span>], hashmap.get(key));</span><br><span class="line"> 	    	&#125; 	    	</span><br><span class="line"> 	    &#125;		</span><br><span class="line"> 		<span class="comment">//输出月份的小计</span></span><br><span class="line"> 		<span class="keyword">for</span>(String month:hashmapMonth.keySet()) &#123;</span><br><span class="line"> 			context.write(<span class="keyword">new</span> Text(month+<span class="string">",小计"</span>), <span class="keyword">new</span> IntWritable(hashmapMonth.get(month)));</span><br><span class="line"> 		&#125;			</span><br><span class="line"> 	&#125; 	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="第二个Map类（需要利用二次排序中自定义的类）"><a href="#第二个Map类（需要利用二次排序中自定义的类）" class="headerlink" title="第二个Map类（需要利用二次排序中自定义的类）"></a>第二个Map类（需要利用二次排序中自定义的类）</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">SecondarySortKeyPair</span>, <span class="title">Text</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Mapper&lt;LongWritable,Text,SecondarySortKeyPair,Text&gt;.Context context)</span> </span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line"></span><br><span class="line">		String[] ss=value.toString().split(<span class="string">","</span>);</span><br><span class="line">		SecondarySortKeyPair outKey=<span class="keyword">new</span> SecondarySortKeyPair();</span><br><span class="line">		outKey.setFirst(Integer.valueOf(ss[<span class="number">0</span>]));	<span class="comment">//ss[0]为月份</span></span><br><span class="line">		outKey.setSecond(Integer.valueOf(ss[<span class="number">2</span>])); <span class="comment">//ss[2]为销量		</span></span><br><span class="line">		context.write(outKey, <span class="keyword">new</span> Text(ss[<span class="number">1</span>])); <span class="comment">//key:月份，销量  value:品牌</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="第二个Reduce类"><a href="#第二个Reduce类" class="headerlink" title="第二个Reduce类"></a>第二个Reduce类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondarySortReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">SecondarySortKeyPair</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(SecondarySortKeyPair key,Iterable&lt;Text&gt; values,Reducer&lt;SecondarySortKeyPair,Text,Text,Text&gt;.Context context)</span> </span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">		Text outKey=<span class="keyword">new</span> Text();</span><br><span class="line">		<span class="keyword">for</span>(Text v:values) &#123;</span><br><span class="line">			<span class="comment">//月份</span></span><br><span class="line">			String month = String.valueOf(key.getFirst());	</span><br><span class="line">			<span class="comment">//销量</span></span><br><span class="line">			String num = String.valueOf(key.getSecond());	</span><br><span class="line">			<span class="comment">//品牌</span></span><br><span class="line">			String car = v.toString();</span><br><span class="line">			<span class="comment">//按规定输出</span></span><br><span class="line">			<span class="keyword">if</span>(month.length() == <span class="number">2</span>)</span><br><span class="line">				context.write(<span class="keyword">new</span> Text(month + <span class="string">","</span> + car), <span class="keyword">new</span> Text(num));</span><br><span class="line">			<span class="keyword">else</span><span class="comment">//给一位数的月份补0</span></span><br><span class="line">				context.write(<span class="keyword">new</span> Text(<span class="string">"0"</span> + month + <span class="string">","</span> + car), <span class="keyword">new</span> Text(num));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf =<span class="keyword">new</span> Configuration();       </span><br><span class="line"><span class="comment">//设置输出key和value之间的连接符</span></span><br><span class="line">conf.set(<span class="string">"mapred.textoutputformat.separator"</span>, <span class="string">","</span>); </span><br><span class="line"><span class="comment">//设置排序的比较器</span></span><br><span class="line">job2.setGroupingComparatorClass(SecondarySortGroupComparator.class);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/31/SpringBoot属性配置文件/" rel="next" title="SpringBoot属性配置文件">
+                <i class="fa fa-chevron-left"></i> SpringBoot属性配置文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Eleven">
+            
+              <p class="site-author-name" itemprop="name">Eleven</p>
+              <p class="site-description motion-element" itemprop="description">Insist on learning some technology every day.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce工作原理"><span class="nav-number">1.</span> <span class="nav-text">MapReduce工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①Map阶段"><span class="nav-number">1.0.1.</span> <span class="nav-text">①Map阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②Shuffle阶段"><span class="nav-number">1.0.2.</span> <span class="nav-text">②Shuffle阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③Reduce阶段"><span class="nav-number">1.0.3.</span> <span class="nav-text">③Reduce阶段</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce实例应用"><span class="nav-number">2.</span> <span class="nav-text">MapReduce实例应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单词计数"><span class="nav-number">2.1.</span> <span class="nav-text">单词计数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Map类"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">Map类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reduce类"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">Reduce类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Job类"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">Job类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去重"><span class="nav-number">2.2.</span> <span class="nav-text">去重</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Map类-1"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">Map类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reduce类-1"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">Reduce类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去重计数"><span class="nav-number">2.3.</span> <span class="nav-text">去重计数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Map类-2"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">Map类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reduce类-2"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">Reduce类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二次排序"><span class="nav-number">2.4.</span> <span class="nav-text">二次排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自定义map的key类型"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">自定义map的key类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#排序"><span class="nav-number">2.4.0.2.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分区"><span class="nav-number">2.4.0.3.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map类-3"><span class="nav-number">2.4.0.4.</span> <span class="nav-text">Map类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reduce类-3"><span class="nav-number">2.4.0.5.</span> <span class="nav-text">Reduce类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Job类-1"><span class="nav-number">2.4.0.6.</span> <span class="nav-text">Job类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用cleanup处理复杂的应用"><span class="nav-number">2.5.</span> <span class="nav-text">利用cleanup处理复杂的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一个Map类"><span class="nav-number">2.5.0.1.</span> <span class="nav-text">第一个Map类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第一个Reduce类"><span class="nav-number">2.5.0.2.</span> <span class="nav-text">第一个Reduce类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个Map类（需要利用二次排序中自定义的类）"><span class="nav-number">2.5.0.3.</span> <span class="nav-text">第二个Map类（需要利用二次排序中自定义的类）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个Reduce类"><span class="nav-number">2.5.0.4.</span> <span class="nav-text">第二个Reduce类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Job"><span class="nav-number">2.5.0.5.</span> <span class="nav-text">Job</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eleven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
