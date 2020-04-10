@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2020/03/07/centos无法上网的问题/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-07T14:04:33.444Z">
+<meta property="og:updated_time" content="2020-04-08T15:09:42.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos无法上网的问题">
 
@@ -371,6 +371,14 @@ search localdomain</code></pre></li>
 any net 0.0.0.0 netmask 0.0.0.0 gw 192.168.170.2  #默认路由  </code></pre></li>
 </ol>
 <h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h2><p><code>service network restart</code>–重启网卡  <code>reboot</code>–重启</p>
+<p><strong>PS：</strong>若是重启网卡失败，并按照<code>systemctl status network.service</code>提示查看，有提示红色错误<code>Failed to start LSB: Bring up/down networking.</code>,则</p>
+<blockquote>
+<ol>
+<li>用<code>ip addr</code>查看mac地址，在第二项<code>link/ether mac地址 brd ff:ff:ff:ff:ff:ff</code></li>
+<li><code>sudo vim /etc/sysconfig/network-scripts/ifcfg-eth0</code>添加 <code>HWADDR=mac地址</code>比如<code>HWADDR=00:0c:29:fa:d3:07</code></li>
+<li><code>service network restart</code>–重启网卡</li>
+</ol>
+</blockquote>
 
       
     </div>
