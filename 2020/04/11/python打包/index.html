@@ -80,16 +80,13 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-146-LRU缓存机制">
-<meta property="og:url" content="http://yoursite.com/2020/02/13/LeetCode-146-LRU缓存机制/index.html">
+<meta property="og:title" content="python打包">
+<meta property="og:url" content="http://yoursite.com/2020/04/11/python打包/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/02/13/LeetCode-146-LRU缓存机制/1.PNG">
-<meta property="og:image" content="http://yoursite.com/2020/02/13/LeetCode-146-LRU缓存机制/2.PNG">
-<meta property="og:updated_time" content="2020-02-13T11:09:12.634Z">
+<meta property="og:updated_time" content="2020-04-11T09:18:19.251Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode-146-LRU缓存机制">
-<meta name="twitter:image" content="http://yoursite.com/2020/02/13/LeetCode-146-LRU缓存机制/1.PNG">
+<meta name="twitter:title" content="python打包">
 
 
 
@@ -119,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/02/13/LeetCode-146-LRU缓存机制/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/11/python打包/">
 
 
 
 
 
-  <title>LeetCode-146-LRU缓存机制 | Eleven's Blog</title>
+  <title>python打包 | Eleven's Blog</title>
   
 
 
@@ -262,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/LeetCode-146-LRU缓存机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/11/python打包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eleven">
@@ -279,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode-146-LRU缓存机制</h1>
+          <h1 class="post-title" itemprop="name headline">python打包</h1>
         
 
         <div class="post-meta">
@@ -291,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T18:29:08+08:00">
-                2020-02-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-11T17:14:33+08:00">
+                2020-04-11
               </time>
             
 
@@ -314,8 +311,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -353,96 +350,27 @@
       
         <hr>
 <a id="more"></a>
-<p><img src="/2020/02/13/LeetCode-146-LRU缓存机制/1.PNG" alt><br>哈希表查找快，但是数据无固定顺序；链表有顺序之分，插入删除快，但是查找慢。所以结合一下，形成一种新的数据结构：哈希链表。<br>LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体。<br><img src="/2020/02/13/LeetCode-146-LRU缓存机制/2.PNG" alt>    </p>
-<pre><code>class Node{
-    public int key,val;
-    public Node next,prev;
-    public Node(int key,int val){
-        this.key=key;
-        this.val=val;
-    }
-}
-class DoubleList{
-    private Node head,tail;//头尾虚节点
-    private int size;
-    public DoubleList(){
-        head=new Node(0,0);
-        tail=new Node(0,0);
-        head.next=tail;
-        tail.prev=head;
-        size=0;
-    }
-    // 在链表头部添加节点 x
-    public void addFist(Node x){
-        x.next = head.next;
-        x.prev = head;
-        head.next.prev=x;
-        head.next=x;
-        size++;
-    }
-     // 删除链表中的 x 节点（x 一定存在）
-    public void remove(Node x){
-        x.prev.next=x.next;
-        x.next.prev=x.prev;
-        size--;
-    }
-    // 删除链表中最后一个节点，并返回该节点
-    public Node removeLast(){
-        if(tail.prev == head)
-            return null;
-        Node last=tail.prev;
-        remove(last);
-        return last;       
-    }
-    // 返回链表长度
-    public int size(){
-        return size;
-    }
-}
-class LRUCache {
-    private HashMap&lt;Integer,Node&gt; map;
-    private DoubleList cache;
-    private int cap;// 最大容量
-    public LRUCache(int capacity) {
-        this.cap=capacity;
-        map = new HashMap&lt;&gt;();
-        cache = new DoubleList();
-    }
-    public int get(int key) {
-        if(!map.containsKey(key))
-            return -1;
-        int val=map.get(key).val;
-        put(key,val);
-        return val;
-    }
-    public void put(int key, int value) {
-        Node x=new Node(key,value);
-        if(map.containsKey(key)){
-            // 删除旧的节点，新的插到头部
-            cache.remove(map.get(key));
-            cache.addFist(x);
-            // 更新 map 中对应的数据
-            map.put(key,x);
-        }
-        else{
-            if(cap==cache.size()){
-                // 删除链表最后一个数据
-                Node last=cache.removeLast();
-                map.remove(last.key);
-            }
-            // 直接添加到头部
-            cache.addFist(x);
-            map.put(key,x);
-        }
-    }
-}
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */</code></pre>
+<h1 id="使用pyinstaller打包"><a href="#使用pyinstaller打包" class="headerlink" title="使用pyinstaller打包"></a>使用pyinstaller打包</h1><ol>
+<li><p><code>pip install pyinstaller</code>安装</p>
+<blockquote>
+<p>ps: 如果出现下载成功但安装失败，且提示<code>AttributeError: module &#39;enum&#39; has no attribute &#39;IntFlag&#39;</code>尝试直接删除enum包即<code>pip uninstall enum34</code></p>
+</blockquote>
+</li>
+<li><p><code>pyinstaller -F filename.py</code>打包，加-F是为了只在dist目录下生成.exe执行文件</p>
+<blockquote>
+<p>ps:  出现UnicodeDecodeError: ‘utf-8’ codec can’t decode byte 0xce in position</p>
+<p>先在命令行执行<code>chcp 65001</code>，再执行打包命令</p>
+</blockquote>
+</li>
+<li><p>遇到打包完运行后出现No module named ‘pkg_resources.py2_warn的问题，用<code>pip install setuptools==44.0.0</code>解决</p>
+</li>
+<li><p>打包完后，执行.exe出现，No module named ‘tensorflow_core.python <a href="https://blog.csdn.net/TaChean/article/details/104664435/" target="_blank" rel="noopener">参考博客</a></p>
+</li>
+</ol>
+<p>项目中有tensorflow库时，打包出错，可以尝试一下<code>pip install tensorflow --upgrade --force-reinstall</code>，最后打包完文件太大了，不知道有什么办法可以减少不必要库的打包。</p>
+<p><strong>待续………..</strong></p>
+
       
     </div>
     
@@ -466,8 +394,8 @@ class LRUCache {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/12/LeetCode-141-环形链表/" rel="next" title="LeetCode-141-环形链表">
-                <i class="fa fa-chevron-left"></i> LeetCode-141-环形链表
+              <a href="/2020/04/06/SpringBoot-Web/" rel="next" title="SpringBoot-Web">
+                <i class="fa fa-chevron-left"></i> SpringBoot-Web
               </a>
             
           </div>
@@ -475,10 +403,6 @@ class LRUCache {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/13/LeetCode-147-对链表进行插入排序/" rel="prev" title="LeetCode-147-对链表进行插入排序">
-                LeetCode-147-对链表进行插入排序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -530,8 +454,17 @@ class LRUCache {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -584,6 +517,22 @@ class LRUCache {
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用pyinstaller打包"><span class="nav-number">1.</span> <span class="nav-text">使用pyinstaller打包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
