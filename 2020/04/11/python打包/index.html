@@ -80,13 +80,16 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="python打包">
+<meta property="og:title" content="创建环境，使用python打包">
 <meta property="og:url" content="http://yoursite.com/2020/04/11/python打包/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-11T09:18:19.251Z">
+<meta property="og:image" content="http://yoursite.com/2020/04/11/python打包/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/11/python打包/2.png">
+<meta property="og:updated_time" content="2020-04-14T03:21:29.271Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python打包">
+<meta name="twitter:title" content="创建环境，使用python打包">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/11/python打包/1.png">
 
 
 
@@ -122,7 +125,7 @@
 
 
 
-  <title>python打包 | Eleven's Blog</title>
+  <title>创建环境，使用python打包 | Eleven's Blog</title>
   
 
 
@@ -276,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python打包</h1>
+          <h1 class="post-title" itemprop="name headline">创建环境，使用python打包</h1>
         
 
         <div class="post-meta">
@@ -351,25 +354,34 @@
         <hr>
 <a id="more"></a>
 
-<h1 id="使用pyinstaller打包"><a href="#使用pyinstaller打包" class="headerlink" title="使用pyinstaller打包"></a>使用pyinstaller打包</h1><ol>
-<li><p><code>pip install pyinstaller</code>安装</p>
+<h1 id="下载pyinstaller"><a href="#下载pyinstaller" class="headerlink" title="下载pyinstaller"></a>下载pyinstaller</h1><p><code>pip install pyinstaller</code>安装</p>
 <blockquote>
 <p>ps: 如果出现下载成功但安装失败，且提示<code>AttributeError: module &#39;enum&#39; has no attribute &#39;IntFlag&#39;</code>尝试直接删除enum包即<code>pip uninstall enum34</code></p>
 </blockquote>
+<h1 id="下载virtualenv"><a href="#下载virtualenv" class="headerlink" title="下载virtualenv"></a>下载virtualenv</h1><p><code>pip install virtualenv</code>安装</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ol>
+<li><p>创建一个文件夹，并进入到该文件夹下，执行指令<code>virtualenv env</code>为项目安装虚拟环境，会看到目录下有个env文件夹。</p>
+<p><img src="/2020/04/11/python打包/1.png" alt></p>
+</li>
+<li><p>激活虚拟环境，<code>env\Scripts\activate</code></p>
+<p><img src="/2020/04/11/python打包/2.png" alt></p>
+</li>
+<li><p>用<strong>conda</strong>安装需要的类库，自己用pip安装库打包总是没加进去类库，不知道为什么</p>
 </li>
 <li><p><code>pyinstaller -F filename.py</code>打包，加-F是为了只在dist目录下生成.exe执行文件</p>
 <blockquote>
-<p>ps:  出现UnicodeDecodeError: ‘utf-8’ codec can’t decode byte 0xce in position</p>
+<p><strong>ps1:</strong>   出现UnicodeDecodeError: ‘utf-8’ codec can’t decode byte 0xce in position</p>
 <p>先在命令行执行<code>chcp 65001</code>，再执行打包命令</p>
+<p><strong>ps2：</strong>如果打包完运行还是找不到库，用<code>--hidden-import=&quot;类库&quot;</code>加上需要的类库打包，比如<code>pyinstaller -F --hidden-import=&quot;类库&quot; filename.py</code></p>
+<p><strong>ps3:</strong>   遇到打包完运行后出现No module named ‘pkg_resources.py2_warn的问题，用<code>pip install setuptools==44.0.0</code>解决</p>
 </blockquote>
-</li>
-<li><p>遇到打包完运行后出现No module named ‘pkg_resources.py2_warn的问题，用<code>pip install setuptools==44.0.0</code>解决</p>
 </li>
 <li><p>打包完后，执行.exe出现，No module named ‘tensorflow_core.python <a href="https://blog.csdn.net/TaChean/article/details/104664435/" target="_blank" rel="noopener">参考博客</a></p>
 </li>
 </ol>
-<p>项目中有tensorflow库时，打包出错，可以尝试一下<code>pip install tensorflow --upgrade --force-reinstall</code>，最后打包完文件太大了，不知道有什么办法可以减少不必要库的打包。</p>
-<p><strong>待续………..</strong></p>
+<blockquote>
+<p>其他博客看到的：项目中有tensorflow库时，打包出错，可以尝试一下<code>pip install tensorflow --upgrade --force-reinstall</code></p>
+</blockquote>
 
       
     </div>
@@ -527,7 +539,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用pyinstaller打包"><span class="nav-number">1.</span> <span class="nav-text">使用pyinstaller打包</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载pyinstaller"><span class="nav-number">1.</span> <span class="nav-text">下载pyinstaller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载virtualenv"><span class="nav-number">2.</span> <span class="nav-text">下载virtualenv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li></ol></div>
             
 
           </div>
