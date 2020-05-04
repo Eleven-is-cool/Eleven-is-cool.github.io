@@ -80,13 +80,13 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot属性配置文件">
-<meta property="og:url" content="http://yoursite.com/2020/03/31/SpringBoot属性配置文件/index.html">
+<meta property="og:title" content="SpringBoot拦截器">
+<meta property="og:url" content="http://yoursite.com/2020/05/04/SpringBoot拦截器/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-31T16:58:19.511Z">
+<meta property="og:updated_time" content="2020-05-04T03:29:54.778Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringBoot属性配置文件">
+<meta name="twitter:title" content="SpringBoot拦截器">
 
 
 
@@ -116,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/31/SpringBoot属性配置文件/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/04/SpringBoot拦截器/">
 
 
 
 
 
-  <title>SpringBoot属性配置文件 | Eleven's Blog</title>
+  <title>SpringBoot拦截器 | Eleven's Blog</title>
   
 
 
@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/31/SpringBoot属性配置文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/04/SpringBoot拦截器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eleven">
@@ -276,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringBoot属性配置文件</h1>
+          <h1 class="post-title" itemprop="name headline">SpringBoot拦截器</h1>
         
 
         <div class="post-meta">
@@ -288,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T23:43:00+08:00">
-                2020-03-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-04T11:27:47+08:00">
+                2020-05-04
               </time>
             
 
@@ -354,9 +354,14 @@
 
       
         <hr>
-<a id="more"></a>
+<a id="more"></a>  
 
-<h2 id="自定义属性与加载"><a href="#自定义属性与加载" class="headerlink" title="自定义属性与加载"></a>自定义属性与加载</h2>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>可以用来拦截某些url请求，例如还没登录的用户直接请求访问登录后的url，此时可以用拦截器和重定向，使用户请求的url被拦截并且跳转到登录的页面。</p>
+<h2 id="springbooot中的HandlerInterceptor"><a href="#springbooot中的HandlerInterceptor" class="headerlink" title="springbooot中的HandlerInterceptor"></a>springbooot中的HandlerInterceptor</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.lang.Nullable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//请求发送到Controller之前调用</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//请求发送到Controller之后调用</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//完成请求的处理的回调方法</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="springbooot-中的使用"><a href="#springbooot-中的使用" class="headerlink" title="springbooot 中的使用"></a>springbooot 中的使用</h2><h4 id="1-自定义拦截器"><a href="#1-自定义拦截器" class="headerlink" title="1. 自定义拦截器"></a>1. 自定义拦截器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginHandlerInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Object loginUser = request.getSession().getAttribute(<span class="string">"loginUser"</span>);</span><br><span class="line">        <span class="keyword">if</span> (loginUser==<span class="keyword">null</span>)&#123;</span><br><span class="line">            response.sendRedirect(<span class="string">"/"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-将拦截器加到MVC中"><a href="#2-将拦截器加到MVC中" class="headerlink" title="2. 将拦截器加到MVC中"></a>2. 将拦截器加到MVC中</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MvcConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// addPathPatterns 用于添加拦截规则</span></span><br><span class="line">        <span class="comment">// excludePathPatterns 用户排除拦截</span></span><br><span class="line">        <span class="comment">//addPathPatterns("/**")对所有请求都拦截，但是排除excludePathPatterns里请求的拦截</span></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> LoginHandlerInterceptor()).addPathPatterns(<span class="string">"/**"</span>)</span><br><span class="line">                .excludePathPatterns(<span class="string">"/"</span>,<span class="string">"/admin"</span>,<span class="string">"/login"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -380,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/27/keras搭建/" rel="next" title="keras搭建（Windows）">
-                <i class="fa fa-chevron-left"></i> keras搭建（Windows）
+              <a href="/2020/04/17/git上传大文件/" rel="next" title="git上传大文件">
+                <i class="fa fa-chevron-left"></i> git上传大文件
               </a>
             
           </div>
@@ -389,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/02/Mapreduce/" rel="prev" title="Mapreduce">
-                Mapreduce <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -517,7 +518,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义属性与加载"><span class="nav-number">1.</span> <span class="nav-text">自定义属性与加载</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器"><span class="nav-number">1.</span> <span class="nav-text">拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springbooot中的HandlerInterceptor"><span class="nav-number">2.</span> <span class="nav-text">springbooot中的HandlerInterceptor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springbooot-中的使用"><span class="nav-number">3.</span> <span class="nav-text">springbooot 中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-自定义拦截器"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 自定义拦截器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将拦截器加到MVC中"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. 将拦截器加到MVC中</span></a></li></ol></li></ol></div>
             
 
           </div>
