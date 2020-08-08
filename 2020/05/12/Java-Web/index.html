@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2020/05/12/Java-Web/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-12T04:45:27.998Z">
+<meta property="og:updated_time" content="2020-08-08T02:25:01.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Web">
 
@@ -356,9 +356,11 @@
         <hr>
 <a id="more"></a> 
 <h1 id="Web资源的分类"><a href="#Web资源的分类" class="headerlink" title="Web资源的分类"></a>Web资源的分类</h1><p>静态资源： html、css、js、txt、mp4视频、jpg图片<br>动态资源： jsp页面、Servlet程序     </p>
-<h1 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h1><h2 id="Web服务器：Tomcat"><a href="#Web服务器：Tomcat" class="headerlink" title="Web服务器：Tomcat"></a>Web服务器：Tomcat</h2><p>Tomcat是常用的Web服务器之一，由Apache组织提供的，提供对jsp、Servlet的支持。它是一种轻量级的javaweb容器（服务器）。<br>Tomcat里面有多个服务，每个服务里面有多个侦听器。<br>如下图，有三个Http请求，同时访问这个服务。Http侦听到这三个请求后，创建了两个线程，让这两个线程并发处理用户请求。这些线程内部都包括Http请求处理器的业务逻辑。待请求处理完成之后，这些线程将封装的请求对象和响应对象交给容器，然后侦听器会回收这些线程，供其他请求使用（Tomcat运用了线程池技术）。     </p>
+<h1 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Tomcat是常用的Web服务器之一，由Apache组织提供的，提供对jsp、Servlet的支持。它是一种轻量级的javaweb容器（服务器）。<br>Tomcat里面有多个服务，每个服务里面有多个侦听器。<br>如下图，有三个Http请求，同时访问这个服务。Http侦听到这三个请求后，创建了两个线程，让这两个线程并发处理用户请求。这些线程内部都包括Http请求处理器的业务逻辑。待请求处理完成之后，这些线程将封装的请求对象和响应对象交给容器，然后侦听器会回收这些线程，供其他请求使用（Tomcat运用了线程池技术）。     </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">X[Http请求]--&gt;A[Http帧听器]</span><br><span class="line">Y[Http请求]--&gt;A</span><br><span class="line">Z[Http请求]--&gt;A</span><br><span class="line">subgraph Tomcat的一个服务</span><br><span class="line">A --&gt;B[线程1]</span><br><span class="line">    A --&gt; C[线程2]</span><br><span class="line">    B --&gt;D[容器]</span><br><span class="line">    C --&gt;D</span><br><span class="line">E[AJP侦听器]</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
+<h1 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h1><p>① Tomcat将http请求文本接收并解析，然后封装成HttpServletRequest类型的request对象，所有的HTTP头数据读可以通过request对象调用对应的方法查询到。</p>
+<p>② Tomcat同时会要响应的信息封装为HttpServletResponse类型的response对象，通过设置response属性就可以控制要输出到浏览器的内容，然后将response交给tomcat，tomcat就会将其变成响应文本的格式发送给浏览器</p>
 <h2 id="启动和关闭Tomcat"><a href="#启动和关闭Tomcat" class="headerlink" title="启动和关闭Tomcat"></a>启动和关闭Tomcat</h2><p><strong>启动：</strong><br>方法一:bin目录下，双击startup.bat<br>方法二：cd tomcat/bin目录下，catalina run<br><strong>停止：</strong><br>bin目录下，双击shutdown.bat           </p>
 <h2 id="Tomcat改端口"><a href="#Tomcat改端口" class="headerlink" title="Tomcat改端口"></a>Tomcat改端口</h2><p>找到conf/server.xml中修改port    </p>
 <pre><code>&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;
@@ -384,7 +386,12 @@
 <li>执行service方法 （每次访问都调用）   </li>
 <li>执行destroy销毁方法 （在web工程停止的时候调用）  </li>
 </ol>
-<h1 id="待续…"><a href="#待续…" class="headerlink" title="待续….."></a>待续…..</h1>
+<h1 id="Tomcat和Servlet的区别"><a href="#Tomcat和Servlet的区别" class="headerlink" title="Tomcat和Servlet的区别"></a>Tomcat和Servlet的区别</h1><blockquote>
+<p>Tomcat 是Web应用服务器，是一个Servlet/JSP容器.。</p>
+<p>Tomcat 作为Servlet容器，负责处理客户请求,把请求传送给Servlet，并将Servlet的响应传送回给客户，而Servlet是一种运行在支持Java语言的服务器上的组件。</p>
+<p> Servlet最常见的用途是扩展Java Web服务器功能，提供非常安全的，可移植的，易于使用的CGI替代品。</p>
+</blockquote>
+
       
     </div>
     
@@ -499,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -545,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web资源的分类"><span class="nav-number">1.</span> <span class="nav-text">Web资源的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat"><span class="nav-number">2.</span> <span class="nav-text">Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web服务器：Tomcat"><span class="nav-number">2.1.</span> <span class="nav-text">Web服务器：Tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动和关闭Tomcat"><span class="nav-number">2.2.</span> <span class="nav-text">启动和关闭Tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat改端口"><span class="nav-number">2.3.</span> <span class="nav-text">Tomcat改端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署web工程到Tomcat中"><span class="nav-number">2.4.</span> <span class="nav-text">部署web工程到Tomcat中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IJ配置tomcat"><span class="nav-number">2.5.</span> <span class="nav-text">IJ配置tomcat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet技术"><span class="nav-number">3.</span> <span class="nav-text">Servlet技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet简介"><span class="nav-number">3.1.</span> <span class="nav-text">Servlet简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现Servlet"><span class="nav-number">3.2.</span> <span class="nav-text">简单实现Servlet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet生命周期"><span class="nav-number">3.3.</span> <span class="nav-text">Servlet生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#待续…"><span class="nav-number">4.</span> <span class="nav-text">待续…..</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web资源的分类"><span class="nav-number">1.</span> <span class="nav-text">Web资源的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat"><span class="nav-number">2.</span> <span class="nav-text">Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作过程"><span class="nav-number">3.</span> <span class="nav-text">工作过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动和关闭Tomcat"><span class="nav-number">3.1.</span> <span class="nav-text">启动和关闭Tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat改端口"><span class="nav-number">3.2.</span> <span class="nav-text">Tomcat改端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署web工程到Tomcat中"><span class="nav-number">3.3.</span> <span class="nav-text">部署web工程到Tomcat中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IJ配置tomcat"><span class="nav-number">3.4.</span> <span class="nav-text">IJ配置tomcat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet技术"><span class="nav-number">4.</span> <span class="nav-text">Servlet技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet简介"><span class="nav-number">4.1.</span> <span class="nav-text">Servlet简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现Servlet"><span class="nav-number">4.2.</span> <span class="nav-text">简单实现Servlet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet生命周期"><span class="nav-number">4.3.</span> <span class="nav-text">Servlet生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat和Servlet的区别"><span class="nav-number">5.</span> <span class="nav-text">Tomcat和Servlet的区别</span></a></li></ol></div>
             
 
           </div>
