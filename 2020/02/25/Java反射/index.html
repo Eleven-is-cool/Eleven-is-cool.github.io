@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2020/02/25/Java反射/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-05T05:39:06.812Z">
+<meta property="og:updated_time" content="2020-08-22T07:48:16.597Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-反射">
 
@@ -416,7 +416,7 @@ public @interface Length{
     int min();// 允许字符串长度的最小值
     int max();// 允许字符串长度的最大值
     int errogrMsg();// 自定义的错误提示信息 
-}</code></pre><p>下面做几点说明：<br>1、注解的定义有点像定义接口 interface，但唯一不同的是前面需要加一个@符号<br>2、注解的成员变量只能使用基本类型、 String或者 enum枚举，比如 int可以，但 Integer这种包装类型就不行，需注意<br>3、像上面 @Target、 @Retention这种加在注解定义上面的注解，我们称为 “元注解”，元注解就是专门用于给注解添加注解的注解，哈哈，很拗口，简单理解，元注解就是天生就有的注解，可直接用于注解的定义上<br>4、 @Target(xxx) 用来说明该自定义注解可以用在什么位置，比如：<br>ElementType.FIELD：说明自定义的注解可以用于类的变量<br>ElementType.METHOD：说明自定义的注解可以用于类的方法<br>ElementType.TYPE：说明自定义的注解可以用于类本身、接口或 enum类型<br>等等… 还有很多<br>5、 @Retention(xxx) 用来说明你自定义注解的生命周期，比如：<br>@Retention(RetentionPolicy.RUNTIME)：表示注解可以一直保留到运行时，因此可以通过反射获取注解信息<br>@Retention(RetentionPolicy.CLASS)：表示注解被编译器编译进 class文件，但运行时会忽略<br>@Retention(RetentionPolicy.SOURCE)：表示注解仅在源文件中有效，编译时就会被忽略<br>所以声明周期从长到短分别为：RUNTIME &gt; CLASS &gt; SOURCE ，一般来说，如果需要在运行时去动态获取注解的信息，还是得用RUNTIME，就像本文所用。       </p>
+}</code></pre><p>下面做几点说明：<br>1、注解的定义有点像定义接口 interface，但唯一不同的是前面需要加一个@符号<br>2、注解的成员变量只能使用基本类型、 String或者 enum枚举，比如 int可以，但 Integer这种包装类型就不行，需注意<br>3、像上面 @Target、 @Retention这种加在注解定义上面的注解，我们称为 “元注解”，元注解就是专门用于给注解添加注解的注解，哈哈，很拗口，简单理解，元注解就是天生就有的注解，可直接用于注解的定义上<br>4、 @Target(xxx) 用来说明该自定义注解可以用在什么位置，比如：<br>ElementType.FIELD：说明自定义的注解可以用于类的变量<br>ElementType.METHOD：说明自定义的注解可以用于类的方法<br>ElementType.TYPE：说明自定义的注解可以用于类本身、接口或 enum类型<br>等等… 还有很多<br>5、 @Retention(xxx) 用来说明你自定义注解的生命周期，比如：<br>@Retention(RetentionPolicy.RUNTIME)：表示注解可以一直保留到运行时，因此可以通过反射获取注解信息<br>@Retention(RetentionPolicy.CLASS)：表示注解被编译器编译进 class文件，但运行时会忽略<br>@Retention(RetentionPolicy.SOURCE)：表示注解仅在源文件中有效，编译时就会被忽略<br>所以声明周期从长到短分别为：RUNTIME &gt; CLASS &gt; SOURCE ，一般来说，如果需要在运行时去动态获取注解的信息，还是得用RUNTIME，就像本文所用。<br>6、 @Document 注解用途主要是标识类型是否要被收入javadoc<br>7、 @Inherited 使被它修饰的注解具有继承性（如果某个类使用了被@Inherited修饰的注解，则其子类将自动具有该注解）</p>
 <h5 id="第二步：获取注解并对其进行验证-使用反射"><a href="#第二步：获取注解并对其进行验证-使用反射" class="headerlink" title="第二步：获取注解并对其进行验证(使用反射)"></a>第二步：获取注解并对其进行验证(使用反射)</h5><pre><code>public static String validate(Object object) throws IllegalAccessException{
     // 首先通过反射获取object对象的类有哪些字段
     // 对本文来说就可以获取到Student类的id、name、mobile三个字段
@@ -568,7 +568,7 @@ public @interface Length{
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/02/23/排序算法/time.jpg">
-<meta property="og:updated_time" content="2020-08-18T07:08:21.381Z">
+<meta property="og:updated_time" content="2020-08-20T08:21:05.970Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序算法">
 <meta name="twitter:image" content="http://yoursite.com/2020/02/23/排序算法/time.jpg">
@@ -458,74 +458,12 @@ public class BubbleSort {
         }
     }
 }</code></pre><p>性质：1、时间复杂度：O(nlogn) 2、空间复杂度：O(1) 3、非稳定排序 4、原地排序</p>
-<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><pre><code>## 递归式归并排序
-public class MergeSort {
-    public static void mergeSort(int[] arr) {
-           mSort(arr, 0, arr.length-1);
-    }
-    public static void mSort(int[] arr, int left, int right) {
-        if(left &gt;= right)
-            return;
-        int mid=(left+right)/2;
-        if(left&lt;right){
-            mSort(nums,left,mid);
-            mSort(nums,mid+1,right);
-            // 左右归并
-            merge(nums, left, mid, right);
-        }
-    }
-    public static void merge(int[] nums, int left, int mid, int right) {
-        int[] tmp = new int[right-left+1];
-        int i=left;
-        int j=mid+1;
-        int k=0;
-        while(i&lt;=mid &amp;&amp; j&lt;=right){//按顺序放入temp
-            if(nums[i] &lt;= nums[j])
-                temp[k++] = nums[i++];
-            else
-                temp[k++] = nums[j++];
-        }
-        //处理剩下的较长部分
-        while(i&lt;=mid)
-            temp[k++] = nums[i++];
-        while(j&lt;=right)
-            temp[k++] = nums[j++];
-        //temp中元素覆盖回去
-        for(int t=0;t&lt;temp.length;t++){
-            nums[t+left] = temp[t];
-        }
-    }
-}</code></pre><p>性质：1、时间复杂度：O(nlog2n) 2、空间复杂度：O(n) 3、稳定排序 4、非原地排序    </p>
-<ul>
-<li><p>（T[n]=2T[n/2]+O(n)）O(n)为平分这次数组所用的时间，T[n/2]平分一半数组所用的时间 ，T[n] = O(nlogn)。             </p>
-<h2 id="非递归式归并排序"><a href="#非递归式归并排序" class="headerlink" title="非递归式归并排序"></a>非递归式归并排序</h2><p>  public class MergeSort {</p>
-<pre><code>public static int[] mergeSort(int[] arr) {
-    int n = arr.length;
-    // 子数组的大小分别为1，2，4，8...
-    // 刚开始合并的数组大小是1，接着是2，接着4....
-    for (int i = 1; i &lt; n; i += i) {
-        //进行数组进行划分
-        int left = 0;
-        int mid = left + i - 1;
-        int right = mid + i;
-        //进行合并，对数组大小为 i 的数组进行两两合并
-        while (right &lt; n) {
-            // 合并函数和递归式的合并函数一样
-            merge(arr, left, mid, right);
-            left = right + 1;
-            mid = left + i - 1;
-            right = mid + i;
-        }
-        // 还有一些被遗漏的数组没合并，千万别忘了
-        // 因为不可能每个字数组的大小都刚好为 i
-        if (left &lt; n &amp;&amp; mid &lt; n) {
-            merge(arr, left, mid, n - 1);
-        }
-    }
-    return arr;
-}</code></pre><p>  }</p>
-</li>
-</ul>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><h2 id="递归式归并排序"><a href="#递归式归并排序" class="headerlink" title="递归式归并排序"></a>递归式归并排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">   		mSort(arr, <span class="number">0</span>, arr.length-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(left &gt;= right)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">int</span> mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(left&lt;right)&#123;</span><br><span class="line">			mSort(nums,left,mid);</span><br><span class="line">			mSort(nums,mid+<span class="number">1</span>,right);</span><br><span class="line">			<span class="comment">// 左右归并</span></span><br><span class="line">    		merge(nums, left, mid, right);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> left, <span class="keyword">int</span> mid, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] tmp = <span class="keyword">new</span> <span class="keyword">int</span>[right-left+<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">int</span> i=left;</span><br><span class="line">		<span class="keyword">int</span> j=mid+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(i&lt;=mid &amp;&amp; j&lt;=right)&#123;<span class="comment">//按顺序放入temp</span></span><br><span class="line">			<span class="keyword">if</span>(nums[i] &lt;= nums[j])</span><br><span class="line">                temp[k++] = nums[i++];</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				temp[k++] = nums[j++];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//处理剩下的较长部分</span></span><br><span class="line">		<span class="keyword">while</span>(i&lt;=mid)</span><br><span class="line">			temp[k++] = nums[i++];</span><br><span class="line">		<span class="keyword">while</span>(j&lt;=right)</span><br><span class="line">			temp[k++] = nums[j++];</span><br><span class="line">		<span class="comment">//temp中元素覆盖回去</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;temp.length;t++)&#123;</span><br><span class="line">			nums[t+left] = temp[t];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>性质：1、时间复杂度：O(nlog2n) 2、空间复杂度：O(n) 3、稳定排序 4、非原地排序    </p>
+<p>（T[n]=2T[n/2]+O(n)）O(n)为平分这次数组所用的时间，T[n/2]平分一半数组所用的时间 ，T[n] = O(nlogn)。             </p>
+<h2 id="非递归式归并排序"><a href="#非递归式归并排序" class="headerlink" title="非递归式归并排序"></a>非递归式归并排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] mergeSort(<span class="keyword">int</span>[] arr) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.length;</span><br><span class="line">        <span class="comment">// 子数组的大小分别为1，2，4，8...</span></span><br><span class="line">        <span class="comment">// 刚开始合并的数组大小是1，接着是2，接着4....</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i += i) &#123;</span><br><span class="line">            <span class="comment">//进行数组进行划分</span></span><br><span class="line">            <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> mid = left + i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> right = mid + i;</span><br><span class="line">            <span class="comment">//进行合并，对数组大小为 i 的数组进行两两合并</span></span><br><span class="line">            <span class="keyword">while</span> (right &lt; n) &#123;</span><br><span class="line">                <span class="comment">// 合并函数和递归式的合并函数一样</span></span><br><span class="line">                merge(arr, left, mid, right);</span><br><span class="line">                left = right + <span class="number">1</span>;</span><br><span class="line">                mid = left + i - <span class="number">1</span>;</span><br><span class="line">                right = mid + i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 还有一些被遗漏的数组没合并，千万别忘了</span></span><br><span class="line">            <span class="comment">// 因为不可能每个字数组的大小都刚好为 i</span></span><br><span class="line">            <span class="keyword">if</span> (left &lt; n &amp;&amp; mid &lt; n) &#123;</span><br><span class="line">                merge(arr, left, mid, n - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><pre><code>public class QuickSort {
     public static void sort(int[] arr) {
         if(arr == null || arr.length == 0)
@@ -754,7 +692,7 @@ public class MergeSort {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -789,7 +727,7 @@ public class MergeSort {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择排序"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入排序"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冒泡排序"><span class="nav-number">4.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#希尔排序"><span class="nav-number">5.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#归并排序"><span class="nav-number">6.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归式归并排序"><span class="nav-number">6.1.</span> <span class="nav-text">非递归式归并排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">7.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆排序"><span class="nav-number">8.</span> <span class="nav-text">堆排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桶排序"><span class="nav-number">9.</span> <span class="nav-text">桶排序</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择排序"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入排序"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冒泡排序"><span class="nav-number">4.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#希尔排序"><span class="nav-number">5.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#归并排序"><span class="nav-number">6.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归式归并排序"><span class="nav-number">6.1.</span> <span class="nav-text">递归式归并排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归式归并排序"><span class="nav-number">6.2.</span> <span class="nav-text">非递归式归并排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">7.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆排序"><span class="nav-number">8.</span> <span class="nav-text">堆排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桶排序"><span class="nav-number">9.</span> <span class="nav-text">桶排序</span></a></li></ol></div>
             
 
           </div>
