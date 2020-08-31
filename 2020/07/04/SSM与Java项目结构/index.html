@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2020/07/04/SSM与Java项目结构/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-08T15:41:06.378Z">
+<meta property="og:updated_time" content="2020-08-27T15:00:08.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSM与Java项目结构">
 
@@ -364,7 +364,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    表示层SpringMVC--&gt;业务层Service接口</span><br><span class="line">    业务层Service接口--&gt;持久层MyBatis</span><br><span class="line">    持久层MyBatis--&gt;DB</span><br></pre></td></tr></table></figure>
 
-<h1 id="一个经典的web项目目录结构"><a href="#一个经典的web项目目录结构" class="headerlink" title="一个经典的web项目目录结构"></a>一个经典的web项目目录结构</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">| --  java</span><br><span class="line">    | -- 包名</span><br><span class="line">         | --  controller (业务访问)</span><br><span class="line">         | --  entity (实体类)</span><br><span class="line">         | --  mapper (映射,类似dao层,直接和数据库交流,接口提供给service层,提供给controller使                用的)</span><br><span class="line">         | --  service (接口，间接与数据库打交道)</span><br><span class="line">            | -- impl (接口实现)</span><br><span class="line">         | --  启动项</span><br><span class="line">    | -- resources</span><br><span class="line">    	 | -- mapper	</span><br><span class="line">    	 | -- static</span><br><span class="line">    	 | -- templates</span><br><span class="line">    	 | -- application.yml</span><br></pre></td></tr></table></figure>
+<h1 id="一个经典的web项目目录结构"><a href="#一个经典的web项目目录结构" class="headerlink" title="一个经典的web项目目录结构"></a>一个经典的web项目目录结构</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">| --  java</span><br><span class="line">    | -- 包名</span><br><span class="line">         | --  controller (业务访问)</span><br><span class="line">         | --  entity (实体类)</span><br><span class="line">         | --  mapper (映射,类似dao层,直接和数据库交流,接口提供给service层,提供给controller使用的)</span><br><span class="line">         | --  service (接口，间接与数据库打交道)</span><br><span class="line">            | -- impl (接口实现)</span><br><span class="line">         | --  启动项</span><br><span class="line">    | -- resources</span><br><span class="line">    	 | -- mapper	</span><br><span class="line">    	 | -- static</span><br><span class="line">    	 | -- templates</span><br><span class="line">    	 | -- application.yml</span><br></pre></td></tr></table></figure>
 
 <h1 id="SpringBoot项目目录结构"><a href="#SpringBoot项目目录结构" class="headerlink" title="SpringBoot项目目录结构"></a>SpringBoot项目目录结构</h1><h2 id="一、java目录结构"><a href="#一、java目录结构" class="headerlink" title="一、java目录结构"></a>一、<code>java</code>目录结构</h2><table>
 <thead>
@@ -557,7 +557,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
