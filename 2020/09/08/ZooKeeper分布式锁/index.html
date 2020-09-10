@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/09/08/ZooKeeper分布式锁/zooKeeper.png">
-<meta property="og:updated_time" content="2020-09-08T05:43:51.086Z">
+<meta property="og:updated_time" content="2020-09-10T13:13:06.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ZooKeeper分布式锁">
 <meta name="twitter:image" content="http://yoursite.com/2020/09/08/ZooKeeper分布式锁/zooKeeper.png">
@@ -390,7 +390,7 @@
 <li>临时节点的好处：尽管客户端宕机了，但是ZooKeeper在一定时间内没有收到客户端的心跳则会认为回话失效，然后临时节点删除以释放锁。</li>
 </ol>
 <p>二、未获取锁的客户端为什么要监听排在自己前一位的子节点的删除事件？</p>
-<p>按照争夺锁的规则，<strong>每一轮锁的争夺取的都是序号最小的节点</strong>，<strong>当序号最小的节点删除后，正常情况排在最小节点后一位的节点将获得锁</strong>。所以，客户端只需要监听自己前一位的节点即可，这样每当锁释放时，<strong>ZooKeeper只需要通知一个客户端，从而节省了网络带宽</strong>。若将监听事件设置在父节点/lock上，<strong>那么每次锁的释放将通知所有客户端**</strong>。如果客户端数量庞大，会导致ZooKeeper服务器必须处理的操作数量激增，<strong>增加了ZooKeeper服务器的压力，同时很容易产生网络阻塞</strong>。</p>
+<p>按照争夺锁的规则，<strong>每一轮锁的争夺取的都是序号最小的节点</strong>，<strong>当序号最小的节点删除后，正常情况排在最小节点后一位的节点将获得锁</strong>。所以，客户端只需要监听自己前一位的节点即可，这样每当锁释放时，<strong>ZooKeeper只需要通知一个客户端，从而节省了网络带宽</strong>。若将监听事件设置在父节点/lock上，<strong>那么每次锁的释放将通知所有客户端</strong>。如果客户端数量庞大，会导致ZooKeeper服务器必须处理的操作数量激增，<strong>增加了ZooKeeper服务器的压力，同时很容易产生网络阻塞</strong>。</p>
 <blockquote>
 <p> 以上内容整理自《Hadoop大数据技术开发实战》</p>
 </blockquote>
