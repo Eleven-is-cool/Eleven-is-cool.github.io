@@ -639,6 +639,17 @@
 
   
 
+<% if (theme.mermaid.enable) { %>
+  <script src="https://unpkg.com/mermaid@<%= theme.mermaid.version %>/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+<% } %>
+
+
+
         
 <div class="busuanzi-count">
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -668,7 +679,7 @@
 
 
         
-      </div>
+      </%></%></div>
     </footer>
 
     
