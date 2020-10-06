@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/2020/03/01/java-设计模式之单例模式/index.html">
 <meta property="og:site_name" content="Eleven&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-31T01:36:44.214Z">
+<meta property="og:updated_time" content="2020-10-06T01:44:28.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java设计模式之单例模式">
 
@@ -377,22 +377,10 @@
             sh=new SingleLazy();
         return sh;
     }
-}</code></pre><h2 id="双重检测"><a href="#双重检测" class="headerlink" title="双重检测"></a>双重检测</h2><p>双重校验锁式分别在锁的前后进行判空校验，双重校验锁式是线程安全的。加上volatile关键字修饰变量来达到稳定效果。  </p>
-<pre><code>public class SingleLazy{
-    private volatile static SingleLazy sh=null;   
-    private SingleLazy{
-    }
-    public static SingleLazy getInstance(){
-        if(sh == null){  
-            synchronized(SingleLazy.class){  
-                if(sh == null){  
-                    sh = new SingleLazy();            
-                }                   
-                }      
-        }  
-        return sh;  
-    }
-}</code></pre><h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p>静态内部类即使类被加载也不会创建单例对象，除非调用getInstance()，只有当调用getInstance()方法，才会被装载SingleInnerHolder类，从而实例化单例对象。   </p>
+}</code></pre><h2 id="双重检测"><a href="#双重检测" class="headerlink" title="双重检测"></a>双重检测</h2><p>双重校验锁式分别在锁的前后进行判空校验，双重校验锁式是线程安全的。加上volatile关键字修饰变量来防止指令重排。  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// uniqueInstance 采用 volatile 关键字修饰也是很有必要的， </span></span><br><span class="line"><span class="comment">// uniqueInstance = new Singleton(); 这段代码其实是分为三步执行：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 为 uniqueInstance 分配内存空间</span></span><br><span class="line"><span class="comment">// 2. 初始化 uniqueInstance</span></span><br><span class="line"><span class="comment">// 3. 将 uniqueInstance 指向分配的内存地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但是由于 JVM 具有指令重排的特性，执行顺序有可能变成 1-&gt;3-&gt;2。指令重排在</span></span><br><span class="line"><span class="comment">// 单线程环境下不会出现问题，但是在多线程环境下会导致一个线程获得还没有初始化的实例。</span></span><br><span class="line"><span class="comment">// 例如，线程 T1 执行了 1 和 3，此时 T2 调用 getUniqueInstance() 后发现 uniqueInstance 不为空，</span></span><br><span class="line"><span class="comment">// 因此返回 uniqueInstance，但此时 uniqueInstance 还未被初始化。</span></span><br><span class="line"><span class="comment">// 使用 volatile 可以禁止 JVM 的指令重排，保证在多线程环境下也能正常运行。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton uniqueInstance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getUniqueInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//先判断对象是否已经实例过，没有实例化过才进入加锁代码</span></span><br><span class="line">        <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//类对象加锁</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    uniqueInstance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> uniqueInstance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p>静态内部类即使类被加载也不会创建单例对象，除非调用getInstance()，只有当调用getInstance()方法，才会被装载SingleInnerHolder类，从而实例化单例对象。   </p>
 <pre><code>public class SingleInner{
     private static class SingleInnerHolder{  
         private static SingleInner instance = new SingleInner();     
